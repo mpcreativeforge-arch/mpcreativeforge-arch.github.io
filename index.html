@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MP CREATIVE FORGE — Creative Technology Studio</title>
+<meta name="description" content="MP CREATIVE FORGE — Digital products, Android tools, AI systems and cinematic visual technology.">
+
+<style>
+:root {
+    --bg: #08090b;
+    --panel: #101216;
+    --panel-hover: #15181d;
+    --line: #252a31;
+    --text: #f2f3f5;
+    --muted: #9298a1;
+    --gold: #c9a45c;
+    --gold-light: #e0c37b;
+    --cyan: #55b8c9;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background:
+        radial-gradient(circle at 50% -10%, rgba(201,164,92,.09), transparent 34%),
+        radial-gradient(circle at 90% 55%, rgba(55,150,170,.035), transparent 28%),
+        var(--bg);
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(rgba(255,255,255,.012) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.012) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: linear-gradient(to bottom, black, transparent 80%);
+}
+
+.container {
+    width: min(1080px, calc(100% - 40px));
+    margin: auto;
+}
+
+/* HEADER */
+
+header {
+    text-align: center;
+    padding: 82px 0 54px;
+}
+
+.brand {
+    font-size: clamp(25px, 5vw, 44px);
+    font-weight: 700;
+    letter-spacing: .20em;
+    margin-left: .20em;
+}
+
+.eyebrow {
+    margin-top: 18px;
+    color: var(--gold);
+    font-size: 11px;
+    letter-spacing: .34em;
+    text-transform: uppercase;
+}
+
+.hero-line {
+    width: 70px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 27px auto;
+}
+
+.hero-title {
+    font-size: clamp(16px, 2.8vw, 23px);
+    letter-spacing: .18em;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+.hero-text {
+    max-width: 650px;
+    margin: 17px auto 0;
+    color: var(--muted);
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+/* SECTION */
+
+.section-label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 30px 0 18px;
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+}
+
+.section-label::after {
+    content: "";
+    height: 1px;
+    flex: 1;
+    background: var(--line);
+}
+
+/* FEATURE */
+
+.feature {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(201,164,92,.34);
+    background:
+        linear-gradient(135deg, rgba(201,164,92,.055), transparent 42%),
+        var(--panel);
+    padding: 34px;
+    border-radius: 4px;
+}
+
+.feature::after {
+    content: "PRO";
+    position: absolute;
+    right: 27px;
+    top: 25px;
+    color: rgba(201,164,92,.18);
+    font-size: 52px;
+    font-weight: 800;
+    letter-spacing: .08em;
+}
+
+.feature-number {
+    color: var(--gold);
+    font-size: 10px;
+    letter-spacing: .25em;
+}
+
+.feature h2 {
+    position: relative;
+    margin: 12px 0 8px;
+    font-size: 27px;
+    letter-spacing: .12em;
+}
+
+.feature h3 {
+    position: relative;
+    margin: 0 0 17px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+}
+
+.feature p {
+    position: relative;
+    max-width: 650px;
+    color: #b5bac2;
+    line-height: 1.65;
+    font-size: 14px;
+}
+
+.buttons {
+    position: relative;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 26px;
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 145px;
+    padding: 13px 19px;
+    border: 1px solid var(--line);
+    color: var(--text);
+    text-decoration: none;
+    font-size: 10px;
+    letter-spacing: .20em;
+    text-transform: uppercase;
+    transition: .25s ease;
+}
+
+.button:hover {
+    border-color: var(--gold);
+    background: rgba(201,164,92,.07);
+    color: var(--gold-light);
+    transform: translateY(-2px);
+}
+
+.button.primary {
+    border-color: var(--gold);
+    background: rgba(201,164,92,.08);
+}
+
+/* GRID */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.card {
+    display: block;
+    min-height: 155px;
+    padding: 27px;
+    border: 1px solid var(--line);
+    background: rgba(16,18,22,.86);
+    color: var(--text);
+    text-decoration: none;
+    transition: .25s ease;
+}
+
+.card:hover {
+    background: var(--panel-hover);
+    border-color: #454b54;
+    transform: translateY(-2px);
+}
+
+.card-number {
+    color: var(--gold);
+    font-size: 9px;
+    letter-spacing: .25em;
+}
+
+.card h2 {
+    margin: 14px 0 9px;
+    font-size: 17px;
+    letter-spacing: .13em;
+}
+
+.card p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.55;
+    font-size: 12px;
+}
+
+/* CINEMATIC */
+
+.cinematic {
+    margin-top: 14px;
+    padding: 30px;
+    border: 1px solid var(--line);
+    background:
+        linear-gradient(110deg, rgba(60,150,170,.045), transparent 45%),
+        var(--panel);
+}
+
+.cinematic h2 {
+    margin: 0 0 9px;
+    font-size: 18px;
+    letter-spacing: .15em;
+}
+
+.cinematic p {
+    max-width: 680px;
+    color: var(--muted);
+    line-height: 1.65;
+    font-size: 13px;
+}
+
+.cinematic .tagline {
+    margin-top: 21px;
+    color: var(--cyan);
+    font-size: 10px;
+    letter-spacing: .23em;
+}
+
+/* SOCIAL */
+
+.social {
+    display: flex;
+    justify-content: center;
+    gap: 9px;
+    flex-wrap: wrap;
+    margin: 28px 0 20px;
+}
+
+.social a {
+    color: #aeb3bb;
+    border: 1px solid var(--line);
+    padding: 11px 16px;
+    text-decoration: none;
+    font-size: 9px;
+    letter-spacing: .19em;
+    transition: .2s ease;
+}
+
+.social a:hover {
+    color: var(--gold-light);
+    border-color: var(--gold);
+}
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+    padding: 52px 0 35px;
+}
+
+.footer-line {
+    width: 100%;
+    height: 1px;
+    background: var(--line);
+    margin-bottom: 30px;
+}
+
+.motto {
+    color: var(--gold);
+    font-size: 10px;
+    letter-spacing: .28em;
+    line-height: 2.2;
+}
+
+.copyright {
+    margin-top: 24px;
+    color: #626871;
+    font-size: 9px;
+    letter-spacing: .15em;
+}
+
+.privacy {
+    display: inline-block;
+    margin-top: 15px;
+    color: #777d86;
+    text-decoration: none;
+    font-size: 9px;
+    letter-spacing: .16em;
+}
+
+.privacy:hover {
+    color: var(--gold);
+}
+
+/* MOBILE */
+
+@media (max-width: 650px) {
+
+    .container {
+        width: min(100% - 26px, 1080px);
+    }
+
+    header {
+        padding: 58px 0 38px;
+    }
+
+    .brand {
+        font-size: 22px;
+        letter-spacing: .16em;
+    }
+
+    .hero-title {
+        font-size: 13px;
+        letter-spacing: .13em;
+    }
+
+    .hero-text {
+        font-size: 13px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .feature {
+        padding: 25px;
+    }
+
+    .feature::after {
+        font-size: 40px;
+        right: 17px;
+        top: 20px;
+    }
+
+    .feature h2 {
+        font-size: 22px;
+    }
+
+    .button {
+        flex: 1;
+        min-width: 120px;
+    }
+
+    .cinematic {
+        padding: 25px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<main class="container">
+
+<header>
+
+    <div class="brand">MP CREATIVE FORGE</div>
+
+    <div class="eyebrow">
+        Creative Technology Studio
+    </div>
+
+    <div class="hero-line"></div>
+
+    <div class="hero-title">
+        BUILD. CREATE. FORGE.
+    </div>
+
+    <p class="hero-text">
+        Digital products, Android tools and cinematic AI systems
+        built to turn ideas into useful creative technology.
+    </p>
+
+</header>
+
+
+<!-- FEATURED PRODUCT -->
+
+<div class="section-label">
+    Featured
+</div>
+
+<section class="feature">
+
+    <div class="feature-number">01 / ANDROID TOOL</div>
+
+    <h2>MP CLEANER</h2>
+
+    <h3>Android Storage &amp; Device Utility</h3>
+
+    <p>
+        Clean smarter. Understand your storage. Find large files,
+        screenshots and exact duplicates — with powerful device
+        insights and useful tools designed for everyday Android users.
+    </p>
+
+    <div class="buttons">
+
+        <a class="button" 
+           href="https://forgecraft10.gumroad.com/l/hymlu"
+           target="_blank"
+           rel="noopener">
+            GET FREE
+        </a>
+
+        <a class="button primary"
+           href="https://forgecraft10.gumroad.com/l/jkwzxy"
+           target="_blank"
+           rel="noopener">
+            GET PRO · $12
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- HUB -->
+
+<div class="section-label">
+    Explore
+</div>
+
+<section class="grid">
+
+    <a class="card"
+       href="https://forgecraft10.gumroad.com/"
+       target="_blank"
+       rel="noopener">
+
+        <div class="card-number">02 / STORE</div>
+
+        <h2>DIGITAL PRODUCTS</h2>
+
+        <p>
+            Premium AI systems, creative tools, workflows and
+            digital products by MP CREATIVE FORGE.
+        </p>
+
+    </a>
+
+
+    <a class="card" href="#cinematic">
+
+        <div class="card-number">03 / CREATIVE</div>
+
+        <h2>CINEMATIC AI</h2>
+
+        <p>
+            AI video, cinematic visuals, VFX, advertising concepts
+            and visual storytelling.
+        </p>
+
+    </a>
+
+
+    <a class="card"
+       href="mailto:mpcreativeforge@gmail.com">
+
+        <div class="card-number">04 / CONTACT</div>
+
+        <h2>GET IN TOUCH</h2>
+
+        <p>
+            Business inquiries, creative projects,
+            collaborations and product support.
+        </p>
+
+    </a>
+
+
+    <a class="card"
+       href="https://mpcreativeforge-arch.github.io/privacy/mp-cleaner/"
+       target="_blank"
+       rel="noopener">
+
+        <div class="card-number">05 / PRIVACY</div>
+
+        <h2>PRIVACY &amp; SECURITY</h2>
+
+        <p>
+            Read the MP Cleaner Privacy Policy and learn
+            how your data is handled.
+        </p>
+
+    </a>
+
+</section>
+
+
+<!-- CINEMATIC -->
+
+<section class="cinematic" id="cinematic">
+
+    <h2>CINEMATIC AI</h2>
+
+    <p>
+        From product advertising and cinematic AI video to visual
+        stories, VFX and original creative systems — MP CREATIVE FORGE
+        builds technology around the final result, not the prompt.
+    </p>
+
+    <div class="tagline">
+        CREATIVE TECHNOLOGY · VISUAL SYSTEMS · DIGITAL PRODUCTS
+    </div>
+
+</section>
+
+
+<!-- SOCIAL -->
+
+<div class="social">
+
+    <a href="https://www.facebook.com/share/19otzVTKPP/"
+       target="_blank"
+       rel="noopener">
+        FACEBOOK
+    </a>
+
+    <a href="https://www.instagram.com/mp.creative.forge?stkn=YXJyazFtN3ozc21w"
+       target="_blank"
+       rel="noopener">
+        INSTAGRAM
+    </a>
+
+    <a href="https://www.tiktok.com/@mp.creative.forge?_r=1&_t=ZN-9AGIVg1AxC2"
+       target="_blank"
+       rel="noopener">
+        TIKTOK
+    </a>
+
+</div>
+
+
+<footer>
+
+    <div class="footer-line"></div>
+
+    <div class="motto">
+        MAKE IT CINEMATIC.<br>
+        MAKE IT USEFUL.<br>
+        MAKE IT SELLABLE.
+    </div>
+
+    <div class="copyright">
+        © 2026 MP CREATIVE FORGE
+    </div>
+
+    <a class="privacy"
+       href="https://mpcreativeforge-arch.github.io/privacy/mp-cleaner/"
+       target="_blank"
+       rel="noopener">
+        PRIVACY &amp; SECURITY
+    </a>
+
+</footer>
+
+</main>
+
+</body>
+</html>
