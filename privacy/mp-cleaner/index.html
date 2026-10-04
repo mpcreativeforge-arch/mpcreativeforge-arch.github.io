@@ -58,8 +58,6 @@ body{
   line-height:1.7;
 }
 
-/* HEADER */
-
 header{
   width:100%;
   border-bottom:1px solid var(--line2);
@@ -112,15 +110,11 @@ header{
   text-transform:uppercase;
 }
 
-/* MAIN */
-
 main{
   max-width:820px;
   margin:0 auto;
   padding:70px 22px 80px;
 }
-
-/* HERO */
 
 .hero{
   text-align:center;
@@ -165,8 +159,6 @@ h1 span{
   font-size:11px;
   letter-spacing:.05em;
 }
-
-/* CONTENT */
 
 .policy{
   display:flex;
@@ -238,8 +230,6 @@ strong{
   font-weight:700;
 }
 
-/* HIGHLIGHT */
-
 .highlight{
   border-color:rgba(244,166,42,.27);
   background:
@@ -254,13 +244,9 @@ strong{
     inset 0 1px rgba(255,255,255,.03);
 }
 
-/* CONTACT */
-
 .contact{
   border-color:rgba(244,166,42,.15);
 }
-
-/* LINKS */
 
 a{
   color:var(--gold);
@@ -272,8 +258,6 @@ a:hover{
   color:var(--gold2);
   text-decoration:underline;
 }
-
-/* FOOTER */
 
 footer{
   max-width:820px;
@@ -310,8 +294,6 @@ footer{
   font-size:11px;
   margin-top:7px;
 }
-
-/* MOBILE */
 
 @media(max-width:600px){
 
@@ -397,17 +379,18 @@ footer{
 
     <p class="hero-description">
       Transparency matters. This policy explains what MP Cleaner
-      accesses, how it is used, and how your data is handled.
+      accesses, how information is used, and how your data is handled.
     </p>
 
     <div class="updated">
-      Last updated · 3 October 2026
+      Last updated · 4 October 2026
     </div>
 
   </section>
 
 
   <div class="policy">
+
 
     <!-- DEVELOPER -->
 
@@ -429,7 +412,7 @@ footer{
       <p>
         This Privacy Policy applies to
         <strong>MP Cleaner</strong> and
-        <strong>MP Cleaner PRO</strong> ("the app").
+        <strong>MP Cleaner PRO</strong> (collectively, "the app").
       </p>
 
     </section>
@@ -442,25 +425,30 @@ footer{
       <h2>Short version</h2>
 
       <p>
-        MP Cleaner is designed to analyze storage locally
-        on your Android device.
+        MP Cleaner is designed to analyze and manage storage
+        locally on your Android device.
       </p>
 
       <p>
-        The app does not upload your photos, videos, files,
-        filenames or scanned file information to MP Creative
-        Forge or to a remote server.
+        The app does not upload your photos, videos, personal files,
+        filenames or scanned file information to MP Creative Forge
+        or to a remote server.
       </p>
 
       <p>
         The app does not require an account and does not use
-        advertising or analytics.
+        advertising, analytics or behavioral tracking.
+      </p>
+
+      <p>
+        MP Cleaner is designed to work without cloud processing
+        for its storage-management features.
       </p>
 
     </section>
 
 
-    <!-- WHAT IT ACCESSES -->
+    <!-- DATA ACCESSED -->
 
     <section class="section">
 
@@ -468,37 +456,52 @@ footer{
 
       <p>
         Depending on the features you use and the permissions
-        you grant, MP Cleaner may access the following information
-        on your device:
+        you grant, MP Cleaner may access information stored
+        or available on your Android device, including:
       </p>
 
       <ul>
 
         <li>
-          <strong>Storage information</strong> such as used
-          and available storage space, to display storage status.
+          <strong>Storage information</strong> such as total,
+          used and available storage space.
         </li>
 
         <li>
-          <strong>Photos and videos</strong> to identify large
-          files, screenshots and exact duplicates.
+          <strong>Photos and videos</strong> when access is granted,
+          for identifying large files, screenshots and exact duplicates.
         </li>
 
         <li>
-          <strong>File names and file metadata</strong> as
-          necessary to analyze and display files selected by
-          the user.
+          <strong>File names and file metadata</strong> required
+          to analyze and display files selected for review.
         </li>
 
         <li>
-          <strong>Installed-app storage information</strong>
-          when Usage Access permission is granted, solely to
-          display how much storage installed applications use.
+          <strong>File sizes and file content</strong> when required
+          for identifying large files or exact duplicate files.
+        </li>
+
+        <li>
+          <strong>Installed application information</strong> required
+          to display application storage usage and related information.
+        </li>
+
+        <li>
+          <strong>Usage information</strong> when Android Usage Access
+          has been voluntarily enabled, allowing supported features
+          such as last-used dates and application usage-related data.
+        </li>
+
+        <li>
+          <strong>Device information</strong> such as device model,
+          Android version, RAM and storage information, where displayed
+          by the app.
         </li>
 
         <li>
           <strong>App preferences</strong> such as language,
-          minimum file-size settings and ignored folders.
+          file-size settings and ignored folders.
         </li>
 
       </ul>
@@ -506,41 +509,54 @@ footer{
     </section>
 
 
-    <!-- HOW USED -->
+    <!-- PURPOSE -->
 
     <section class="section">
 
-      <h2>How data is used</h2>
+      <h2>How information is used</h2>
 
       <p>
-        The information accessed by MP Cleaner is used only
-        to provide the app's storage-management features.
+        Information accessed by MP Cleaner is used to provide
+        the storage-management and device-information features
+        of the app.
       </p>
 
       <ul>
 
         <li>
-          Finding large files.
+          Analyze storage usage.
         </li>
 
         <li>
-          Identifying screenshots.
+          Find large files.
         </li>
 
         <li>
-          Identifying exact duplicate files.
+          Identify screenshots.
         </li>
 
         <li>
-          Displaying storage usage.
+          Identify exact duplicate files using file content.
         </li>
 
         <li>
-          Displaying storage used by installed applications.
+          Display installed application storage information.
         </li>
 
         <li>
-          Allowing you to select and delete files.
+          Display supported usage and last-used information.
+        </li>
+
+        <li>
+          Display device and battery information.
+        </li>
+
+        <li>
+          Monitor storage status for the optional storage alert.
+        </li>
+
+        <li>
+          Allow you to select files and confirm their deletion.
         </li>
 
       </ul>
@@ -555,25 +571,30 @@ footer{
       <h2>Local processing</h2>
 
       <p>
-        File analysis is performed locally on your Android
-        device.
+        MP Cleaner performs its storage analysis and file processing
+        locally on your Android device.
       </p>
 
       <p>
-        MP Cleaner does not transmit scanned photos, videos,
-        files, filenames or file metadata to MP Creative Forge
-        or to an external server.
+        Photos, videos, files, filenames, file metadata and
+        duplicate-analysis information are not uploaded to
+        MP Creative Forge or to a remote server by the app.
       </p>
 
       <p>
-        No remote database of your personal files is maintained
-        by MP Creative Forge.
+        MP Creative Forge does not maintain a remote database
+        containing your scanned files or their contents.
+      </p>
+
+      <p>
+        Internet access is not required for the app's core
+        storage-analysis and cleaning functionality.
       </p>
 
     </section>
 
 
-    <!-- WHAT IT DOES NOT DO -->
+    <!-- NO TRACKING -->
 
     <section class="section">
 
@@ -586,19 +607,15 @@ footer{
         </li>
 
         <li>
-          It does not collect or sell personal or sensitive user data.
+          It does not sell your personal or device data.
         </li>
 
         <li>
-          It does not include advertising.
+          It does not use advertising.
         </li>
 
         <li>
-          It does not include analytics or behavioral tracking.
-        </li>
-
-        <li>
-          It does not share scanned user content with third parties.
+          It does not use analytics or behavioral tracking.
         </li>
 
         <li>
@@ -606,8 +623,16 @@ footer{
         </li>
 
         <li>
+          It does not use cloud processing for storage analysis.
+        </li>
+
+        <li>
+          It does not share scanned user content with third parties.
+        </li>
+
+        <li>
           It does not access your location, contacts, microphone
-          or camera for its storage-cleaning functionality.
+          or camera for its storage-management functionality.
         </li>
 
       </ul>
@@ -622,21 +647,53 @@ footer{
       <h2>Permissions</h2>
 
       <p>
-        MP Cleaner requests Android permissions only when
-        they are required for a feature you choose to use.
+        MP Cleaner requests access only when required by a feature
+        you choose to use.
       </p>
 
       <p>
-        Storage or media access is used to analyze files
-        stored on your device. Usage Access, when enabled,
-        is used only to read storage usage information for
-        installed applications.
+        Android storage or media access may be required to analyze
+        photos, videos and other files on your device.
       </p>
 
       <p>
-        You can control or revoke applicable permissions through
-        Android system settings. Some app features may not work
-        without the permissions required for those features.
+        Usage Access is optional and is used by supported features
+        that display information such as application usage or
+        last-used dates.
+      </p>
+
+      <p>
+        You control these permissions through Android system
+        settings. If a permission is denied or revoked, the
+        corresponding feature may be unavailable or may provide
+        limited results.
+      </p>
+
+    </section>
+
+
+    <!-- DELETION -->
+
+    <section class="section">
+
+      <h2>File deletion &amp; safety</h2>
+
+      <p>
+        MP Cleaner does not automatically delete files as part
+        of the scanning process.
+      </p>
+
+      <p>
+        Files are presented for your review and selection before
+        deletion. Where Android requires system confirmation,
+        the deletion is completed only after the required
+        confirmation is provided.
+      </p>
+
+      <p>
+        MP Cleaner is designed to avoid deleting system-critical
+        files or application packages as part of its supported
+        cleaning features.
       </p>
 
     </section>
@@ -649,15 +706,14 @@ footer{
       <h2>Security</h2>
 
       <p>
-        Because MP Cleaner performs its file analysis locally,
-        the scanned file content is not transmitted to a remote
+        Because MP Cleaner processes storage information locally,
+        scanned file content is not transmitted to a remote
         MP Creative Forge server.
       </p>
 
       <p>
-        The app is designed to minimize data handling and to
-        process only the information required for its stated
-        functionality.
+        The app is designed to minimize data handling and process
+        only the information required for the features you use.
       </p>
 
     </section>
@@ -671,26 +727,25 @@ footer{
 
       <p>
         MP Creative Forge does not maintain a remote database
-        containing your scanned files or personal information.
+        containing your scanned files, file contents or personal
+        storage information.
       </p>
 
       <p>
-        MP Cleaner stores its own application preferences,
-        such as language, minimum file-size settings and ignored
-        folders, locally on your device.
+        MP Cleaner may store its own application preferences
+        locally on your device, including settings such as language,
+        file-size preferences and ignored folders.
       </p>
 
       <p>
-        These local preferences are normally removed when the
-        application is uninstalled, subject to Android system
-        behavior and device backup settings.
+        Local application data is normally removed when the app
+        is uninstalled, subject to Android system behavior and
+        any backup mechanisms configured on the device.
       </p>
 
       <p>
-        Files are never deleted automatically as part of the
-        scanning process. A file is deleted only after you
-        select it and confirm the deletion using Android's
-        system controls.
+        MP Cleaner does not retain copies of files that you scan
+        or review on a remote server.
       </p>
 
     </section>
@@ -708,11 +763,17 @@ footer{
       </p>
 
       <p>
+        The app does not send scanned files, photos, videos,
+        filenames or storage-analysis data to third-party
+        processing services.
+      </p>
+
+      <p>
         If a future version introduces a third-party service
         that handles user or device data, this Privacy Policy
-        will be updated to describe the relevant data handling
-        before or when that functionality is introduced, as
-        applicable.
+        will be updated to describe the relevant data practices
+        before or when that functionality is introduced,
+        as applicable.
       </p>
 
     </section>
@@ -725,19 +786,25 @@ footer{
       <h2>Purchases</h2>
 
       <p>
-        MP Cleaner PRO may be offered through Gumroad.
+        <strong>MP Cleaner</strong> may be distributed as a
+        free version. <strong>MP Cleaner PRO</strong> is offered
+        through Gumroad as a one-time purchase.
       </p>
 
       <p>
-        If you purchase MP Cleaner PRO through Gumroad,
-        payment and transaction information is processed by
-        Gumroad according to Gumroad's own terms and privacy
-        practices.
+        Payment and transaction information for MP Cleaner PRO
+        is processed by Gumroad according to Gumroad's own terms
+        and privacy practices.
       </p>
 
       <p>
-        MP Creative Forge does not receive your full payment
-        card or banking details through the MP Cleaner app.
+        The MP Cleaner app does not collect or store your full
+        payment card or banking details.
+      </p>
+
+      <p>
+        Purchasing MP Cleaner PRO does not require the app to
+        access your personal files or upload storage content.
       </p>
 
     </section>
@@ -750,8 +817,12 @@ footer{
       <h2>Children</h2>
 
       <p>
-        MP Cleaner is not directed specifically at children
-        and does not knowingly collect personal information
+        MP Cleaner is a general-purpose storage-management
+        application and is not specifically directed at children.
+      </p>
+
+      <p>
+        The app does not knowingly collect personal information
         from children.
       </p>
 
@@ -765,13 +836,13 @@ footer{
       <h2>Changes to this policy</h2>
 
       <p>
-        This Privacy Policy may be updated when the app,
+        This Privacy Policy may be updated when MP Cleaner,
         its features or its data practices change.
       </p>
 
       <p>
-        When changes materially affect privacy, the
-        "Last updated" date at the top of this page will
+        When changes materially affect privacy or data handling,
+        the "Last updated" date at the top of this page will
         be updated accordingly.
       </p>
 
@@ -785,8 +856,8 @@ footer{
       <h2>Contact</h2>
 
       <p>
-        If you have questions about this Privacy Policy
-        or how MP Cleaner handles data, contact:
+        If you have questions about this Privacy Policy or
+        how MP Cleaner handles data, contact:
       </p>
 
       <p>
@@ -796,6 +867,7 @@ footer{
       </p>
 
     </section>
+
 
   </div>
 
