@@ -351,6 +351,60 @@ footer {
     color: var(--gold);
 }
 
+/* SECOND FEATURE + PRIVACY LINKS */
+
+.feature + .feature {
+    margin-top: 14px;
+}
+
+.feature.forge::after {
+    content: "AI";
+}
+
+.button.soon {
+    color: var(--muted);
+    cursor: default;
+}
+
+.button.soon:hover {
+    transform: none;
+    border-color: var(--line);
+    background: transparent;
+    color: var(--muted);
+}
+
+.card.static:hover {
+    background: rgba(16,18,22,.86);
+    border-color: var(--line);
+    transform: none;
+}
+
+.card-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+}
+
+.card-links a {
+    color: var(--gold);
+    border: 1px solid var(--line);
+    padding: 9px 13px;
+    text-decoration: none;
+    font-size: 9px;
+    letter-spacing: .19em;
+    transition: .2s ease;
+}
+
+.card-links a:hover {
+    border-color: var(--gold);
+    color: var(--gold-light);
+}
+
+.privacy + .privacy {
+    margin-left: 18px;
+}
+
 /* MOBILE */
 
 @media (max-width: 650px) {
@@ -473,6 +527,38 @@ footer {
 
 </section>
 
+<section class="feature forge">
+
+    <div class="feature-number">02 / ANDROID APP</div>
+
+    <h2>PROMPT FORGE</h2>
+
+    <h3>Your AI Prompt Vault</h3>
+
+    <p>
+        Save it. Find it. Create. A private vault for your AI prompts —
+        save, search, organise and version them, copy in one tap and
+        export them any time. Everything stays on your device: no account,
+        no cloud, no ads, no permissions.
+    </p>
+
+    <div class="buttons">
+
+        <span class="button soon">
+            COMING SOON
+        </span>
+
+        <a class="button primary"
+           href="https://mpcreativeforge-arch.github.io/privacy/prompt-forge/"
+           target="_blank"
+           rel="noopener">
+            PRIVACY POLICY
+        </a>
+
+    </div>
+
+</section>
+
 
 <!-- HUB -->
 
@@ -487,7 +573,7 @@ footer {
        target="_blank"
        rel="noopener">
 
-        <div class="card-number">02 / STORE</div>
+        <div class="card-number">03 / STORE</div>
 
         <h2>DIGITAL PRODUCTS</h2>
 
@@ -501,7 +587,7 @@ footer {
 
     <a class="card" href="#cinematic">
 
-        <div class="card-number">03 / CREATIVE</div>
+        <div class="card-number">04 / CREATIVE</div>
 
         <h2>CINEMATIC AI</h2>
 
@@ -516,7 +602,7 @@ footer {
     <a class="card"
        href="mailto:mpcreativeforge@gmail.com">
 
-        <div class="card-number">04 / CONTACT</div>
+        <div class="card-number">05 / CONTACT</div>
 
         <h2>GET IN TOUCH</h2>
 
@@ -528,21 +614,27 @@ footer {
     </a>
 
 
-    <a class="card"
-       href="https://mpcreativeforge-arch.github.io/privacy/mp-cleaner/"
-       target="_blank"
-       rel="noopener">
+    <div class="card static">
 
-        <div class="card-number">05 / PRIVACY</div>
+        <div class="card-number">06 / PRIVACY</div>
 
         <h2>PRIVACY &amp; SECURITY</h2>
 
         <p>
-            Read the MP Cleaner Privacy Policy and learn
+            Read the privacy policies and learn
             how your data is handled.
         </p>
 
-    </a>
+        <div class="card-links">
+            <a href="https://mpcreativeforge-arch.github.io/privacy/mp-cleaner/"
+               target="_blank"
+               rel="noopener">MP CLEANER</a>
+            <a href="https://mpcreativeforge-arch.github.io/privacy/prompt-forge/"
+               target="_blank"
+               rel="noopener">PROMPT FORGE</a>
+        </div>
+
+    </div>
 
 </section>
 
@@ -609,7 +701,14 @@ footer {
        href="https://mpcreativeforge-arch.github.io/privacy/mp-cleaner/"
        target="_blank"
        rel="noopener">
-        PRIVACY &amp; SECURITY
+        PRIVACY · MP CLEANER
+    </a>
+
+    <a class="privacy"
+       href="https://mpcreativeforge-arch.github.io/privacy/prompt-forge/"
+       target="_blank"
+       rel="noopener">
+        PRIVACY · PROMPT FORGE
     </a>
 
 </footer>
