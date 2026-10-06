@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Privacy Policy for RollForge, the offline dice utility by MP Creative Forge.">
+<meta name="theme-color" content="#050403">
+<title>RollForge — Privacy Policy | MP Creative Forge</title>
+<style>
+:root {
+  --bg: #050403;
+  --panel: #0b0805;
+  --amber: #ffb000;
+  --amber-bright: #ffd37a;
+  --amber-hot: #ffe9b8;
+  --amber-dim: #b07a12;
+  --amber-muted: #6e4c0e;
+  --amber-faint: rgba(255, 176, 0, .08);
+  --mono: "Share Tech Mono", "JetBrains Mono", "Fira Mono", "DejaVu Sans Mono", Menlo, Consolas, "Courier New", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--bg);
+  /* faint technical grid */
+  background-image:
+    linear-gradient(rgba(255,176,0,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,176,0,.045) 1px, transparent 1px);
+  background-size: 24px 24px;
+  color: var(--amber);
+  font-family: var(--mono);
+  font-size: 15px;
+  line-height: 1.7;
+  text-shadow: 0 0 6px rgba(255, 176, 0, .25);
+}
+
+/* CRT overlay: scanlines + vignette + slow refresh band */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+body::before {
+  background:
+    repeating-linear-gradient(to bottom, rgba(0,0,0,.22) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.6) 100%);
+}
+body::after {
+  background: linear-gradient(to bottom, transparent, rgba(255,176,0,.035), transparent);
+  height: 14vh;
+  animation: band 7s linear infinite;
+}
+@keyframes band {
+  from { transform: translateY(-20vh); }
+  to   { transform: translateY(120vh); }
+}
+@media (prefers-reduced-motion: reduce) {
+  body::after { display: none; }
+}
+
+a { color: var(--amber-bright); }
+a:hover { color: var(--amber-hot); }
+
+.page {
+  width: min(100% - 32px, 860px);
+  margin: 0 auto;
+  padding: 28px 0 72px;
+}
+
+/* chamfered HUD panel */
+.panel {
+  position: relative;
+  margin: 18px 0;
+  padding: 22px 22px 20px;
+  background: var(--panel);
+  border: 1px solid var(--amber-dim);
+  clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+}
+.panel::before,
+.panel::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 1px;
+  background: var(--amber-dim);
+}
+.panel::before { top: 6px; left: -3px; transform: rotate(-45deg); }
+.panel::after { bottom: 6px; right: -3px; transform: rotate(-45deg); }
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--amber-dim);
+  text-transform: uppercase;
+}
+.topbar .bars { letter-spacing: 1px; color: var(--amber-muted); }
+
+.lang {
+  display: flex;
+  gap: 6px;
+}
+.lang button {
+  font: inherit;
+  font-size: 12px;
+  letter-spacing: 2px;
+  padding: 6px 12px;
+  color: var(--amber);
+  background: transparent;
+  border: 1px solid var(--amber-dim);
+  cursor: pointer;
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+}
+.lang button[aria-pressed="true"] {
+  background: rgba(255,176,0,.16);
+  color: var(--amber-hot);
+  border-color: var(--amber);
+}
+
+header.panel { text-align: center; padding: 30px 22px 26px; }
+.brand { font-size: 12px; letter-spacing: 5px; color: var(--amber-dim); }
+h1 {
+  margin: 14px 0 2px;
+  font-size: clamp(30px, 8vw, 54px);
+  letter-spacing: 6px;
+  line-height: 1.1;
+  color: var(--amber-bright);
+  text-shadow: 0 0 14px rgba(255,176,0,.6);
+}
+.subtitle { font-size: 12px; letter-spacing: 5px; color: var(--amber-dim); text-transform: uppercase; }
+.doc-title { margin-top: 18px; font-size: 18px; letter-spacing: 3px; text-transform: uppercase; color: var(--amber); }
+.updated { margin-top: 6px; font-size: 12px; color: var(--amber-dim); letter-spacing: 1px; }
+
+.status {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px 22px;
+  margin-top: 18px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--amber-dim);
+}
+.status b { color: var(--amber); font-weight: normal; }
+.status b::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin: 0 6px 1px 0;
+  background: var(--amber);
+  box-shadow: 0 0 6px var(--amber);
+}
+
+.hero { border-color: var(--amber); text-align: center; }
+.hero p { margin: 0; color: var(--amber-hot); font-size: 17px; }
+.hero small { display: block; margin-top: 8px; color: var(--amber); font-size: 13px; }
+
+h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0 0 10px;
+  font-size: 15px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--amber-bright);
+  font-weight: normal;
+}
+h2 .num { color: var(--amber-dim); font-size: 12px; }
+h2::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: repeating-linear-gradient(90deg, var(--amber-muted) 0 12px, transparent 12px 16px);
+  transform: translateY(-4px);
+}
+
+p { margin: 0 0 10px; }
+ul { margin: 6px 0 10px; padding: 0; list-style: none; }
+li { position: relative; padding-left: 22px; margin: 4px 0; }
+li::before { content: "▸"; position: absolute; left: 0; color: var(--amber-dim); }
+
+.kv { display: grid; grid-template-columns: max-content 1fr; gap: 4px 18px; }
+.kv dt { color: var(--amber-dim); letter-spacing: 1px; }
+.kv dd { margin: 0; color: var(--amber-bright); }
+
+footer {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--amber-muted);
+}
+footer a { color: var(--amber-dim); text-decoration: none; }
+
+[hidden] { display: none !important; }
+
+@media (max-width: 520px) {
+  body { font-size: 14px; }
+  .panel { padding: 18px 16px 16px; }
+  .topbar .bars { display: none; }
+  .kv { grid-template-columns: 1fr; gap: 0 0; }
+  .kv dd { margin-bottom: 8px; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+
+  <div class="topbar">
+    <span>MP Creative Forge</span>
+    <span class="bars">▮▮▮▯▮▮▯▯▮▮▮▮▯▮</span>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-set-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-set-lang="cs" aria-pressed="false">CZ</button>
+    </div>
+  </div>
+
+  <!-- ============================ ENGLISH ============================ -->
+  <article lang="en" data-lang="en">
+    <header class="panel">
+      <div class="brand">MP CREATIVE FORGE</div>
+      <h1>ROLLFORGE</h1>
+      <div class="subtitle">Dice utility</div>
+      <div class="doc-title">Privacy Policy</div>
+      <div class="updated">Last updated · 6 October 2026</div>
+      <div class="status">
+        <span>DATA <b>LOCAL</b></span>
+        <span>NETWORK <b>NONE</b></span>
+        <span>TRACKING <b>NONE</b></span>
+      </div>
+    </header>
+
+    <section class="panel hero">
+      <p>Your rolls stay on your device.</p>
+      <small>RollForge works fully offline. It does not collect, send, sell or share any personal data.</small>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">01</span>Developer</h2>
+      <dl class="kv">
+        <dt>App</dt><dd>RollForge (Android)</dd>
+        <dt>Developer</dt><dd>MP Creative Forge</dd>
+        <dt>Contact</dt><dd><a href="mailto:mpcreativeforge@gmail.com">mpcreativeforge@gmail.com</a></dd>
+      </dl>
+      <p style="margin-top:12px">This Privacy Policy explains what information RollForge stores, where it is stored and what is never collected.</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">02</span>The short version</h2>
+      <ul>
+        <li>RollForge is an offline dice utility. It does not use the internet.</li>
+        <li>No account or registration is required.</li>
+        <li>No personal data is collected by MP Creative Forge.</li>
+        <li>No advertising, analytics or tracking tools are included.</li>
+        <li>Your roll history, statistics and settings are stored only on your device.</li>
+        <li>You can delete all app data at any time.</li>
+      </ul>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">03</span>Information stored on your device</h2>
+      <p>To provide its features, RollForge saves the following information locally, inside the app's private storage on your device:</p>
+      <ul>
+        <li><b>Roll history:</b> the dice type, the rolled values, the modifier, the total and the time of each roll.</li>
+        <li><b>Statistics:</b> calculated from your roll history (for example totals, averages and distribution).</li>
+        <li><b>Settings:</b> sound, vibration, CRT effect, animation length, modifier display, the last selected die, the time statistics were last reset and your language choice.</li>
+      </ul>
+      <p>This information never leaves your device through RollForge and is not accessible to MP Creative Forge.</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">04</span>Information we do not collect</h2>
+      <ul>
+        <li>No name, email address, phone number or other contact details.</li>
+        <li>No location data.</li>
+        <li>No contacts, photos, files, camera or microphone access.</li>
+        <li>No device identifiers or advertising IDs.</li>
+        <li>No usage analytics or crash reports sent to us.</li>
+      </ul>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">05</span>Permissions</h2>
+      <p>RollForge requests only one permission:</p>
+      <ul>
+        <li><b>Vibration:</b> used for haptic feedback when you touch controls and when dice land. You can turn it off in Settings.</li>
+      </ul>
+      <p>The app does not request internet access, so it cannot transmit data over the network.</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">06</span>Device backup</h2>
+      <p>If you have Android device backup turned on, Android may include RollForge's local data (roll history and settings) in your personal device backup, so it can be restored on a new phone. This backup is managed by Android and Google under your Google account settings, not by MP Creative Forge. You can control it in your device's backup settings.</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">07</span>Data sharing and selling</h2>
+      <p>RollForge does not sell, rent, share or transfer any data to third parties. Because no personal data is collected, no data is shared with advertisers, analytics providers or other companies.</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">08</span>Deleting your data</h2>
+      <ul>
+        <li><b>Settings → Clear history</b> deletes all saved rolls.</li>
+        <li><b>Settings → Reset statistics</b> starts statistics from zero.</li>
+        <li>Uninstalling the app, or clearing its storage in Android settings, removes all RollForge data from your device.</li>
+      </ul>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">09</span>Your rights (GDPR)</h2>
+      <p>MP Creative Forge does not process your personal data, so there is nothing for us to access, correct or delete on our side. All app data is under your control on your device. If you have any questions about privacy or about your rights under the GDPR, contact us at <a href="mailto:mpcreativeforge@gmail.com">mpcreativeforge@gmail.com</a>.</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">10</span>Children</h2>
+      <p>RollForge is suitable for all ages. It does not collect personal information from anyone, including children under 13 (or the applicable age in your country).</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">11</span>Changes to this policy</h2>
+      <p>If this policy changes, for example when new features are added, the updated version will be published on this page with a new "Last updated" date.</p>
+    </section>
+  </article>
+
+  <!-- ============================ ČESKY ============================ -->
+  <article lang="cs" data-lang="cs" hidden>
+    <header class="panel">
+      <div class="brand">MP CREATIVE FORGE</div>
+      <h1>ROLLFORGE</h1>
+      <div class="subtitle">Herní kostky</div>
+      <div class="doc-title">Zásady ochrany soukromí</div>
+      <div class="updated">Poslední aktualizace · 6. října 2026</div>
+      <div class="status">
+        <span>DATA <b>LOKÁLNÍ</b></span>
+        <span>SÍŤ <b>ŽÁDNÁ</b></span>
+        <span>SLEDOVÁNÍ <b>ŽÁDNÉ</b></span>
+      </div>
+    </header>
+
+    <section class="panel hero">
+      <p>Vaše hody zůstávají ve vašem zařízení.</p>
+      <small>RollForge funguje zcela offline. Neshromažďuje, neodesílá, neprodává ani nesdílí žádné osobní údaje.</small>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">01</span>Vývojář</h2>
+      <dl class="kv">
+        <dt>Aplikace</dt><dd>RollForge (Android)</dd>
+        <dt>Vývojář</dt><dd>MP Creative Forge</dd>
+        <dt>Kontakt</dt><dd><a href="mailto:mpcreativeforge@gmail.com">mpcreativeforge@gmail.com</a></dd>
+      </dl>
+      <p style="margin-top:12px">Tyto zásady vysvětlují, jaké informace RollForge ukládá, kde jsou uloženy a co se nikdy neshromažďuje.</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">02</span>Stručně</h2>
+      <ul>
+        <li>RollForge je offline aplikace pro házení kostkami. Nepoužívá internet.</li>
+        <li>Nevyžaduje žádný účet ani registraci.</li>
+        <li>MP Creative Forge neshromažďuje žádné osobní údaje.</li>
+        <li>Aplikace neobsahuje reklamy, analytiku ani sledovací nástroje.</li>
+        <li>Historie hodů, statistiky a nastavení se ukládají pouze ve vašem zařízení.</li>
+        <li>Všechna data aplikace můžete kdykoli smazat.</li>
+      </ul>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">03</span>Informace uložené ve vašem zařízení</h2>
+      <p>Pro své funkce RollForge ukládá do soukromého úložiště aplikace ve vašem zařízení tyto informace:</p>
+      <ul>
+        <li><b>Historie hodů:</b> typ kostky, hozené hodnoty, modifikátor, součet a čas každého hodu.</li>
+        <li><b>Statistiky:</b> vypočítané z historie hodů (např. počty, průměry a rozložení).</li>
+        <li><b>Nastavení:</b> zvuk, vibrace, CRT efekt, délka animace, zobrazení modifikátoru, naposledy zvolená kostka, čas posledního vynulování statistik a zvolený jazyk.</li>
+      </ul>
+      <p>Tyto informace aplikace RollForge nikam neodesílá a MP Creative Forge k nim nemá přístup.</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">04</span>Co neshromažďujeme</h2>
+      <ul>
+        <li>Žádné jméno, e‑mail, telefonní číslo ani jiné kontaktní údaje.</li>
+        <li>Žádné údaje o poloze.</li>
+        <li>Žádný přístup ke kontaktům, fotkám, souborům, fotoaparátu ani mikrofonu.</li>
+        <li>Žádné identifikátory zařízení ani reklamní ID.</li>
+        <li>Žádnou analytiku používání ani hlášení o pádech.</li>
+      </ul>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">05</span>Oprávnění</h2>
+      <p>RollForge žádá pouze o jedno oprávnění:</p>
+      <ul>
+        <li><b>Vibrace:</b> slouží pro hmatovou odezvu při dotyku ovládacích prvků a při dopadu kostek. V Nastavení ji lze vypnout.</li>
+      </ul>
+      <p>Aplikace nežádá o přístup k internetu, a proto nemůže přenášet data po síti.</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">06</span>Záloha zařízení</h2>
+      <p>Pokud máte zapnutou zálohu zařízení Android, systém může data aplikace RollForge (historii hodů a nastavení) zahrnout do vaší osobní zálohy, aby šla obnovit v novém telefonu. Tuto zálohu spravuje Android a Google podle nastavení vašeho účtu Google, nikoli MP Creative Forge. Ovládáte ji v nastavení zálohování svého zařízení.</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">07</span>Sdílení a prodej dat</h2>
+      <p>RollForge neprodává, nepronajímá, nesdílí ani nepředává žádná data třetím stranám. Protože se neshromažďují žádné osobní údaje, nic se nesdílí s inzerenty, analytickými službami ani jinými společnostmi.</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">08</span>Smazání dat</h2>
+      <ul>
+        <li><b>Nastavení → Smazat historii</b> odstraní všechny uložené hody.</li>
+        <li><b>Nastavení → Vynulovat statistiky</b> začne statistiky od nuly.</li>
+        <li>Odinstalováním aplikace nebo vymazáním jejího úložiště v nastavení Androidu se odstraní všechna data RollForge z vašeho zařízení.</li>
+      </ul>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">09</span>Vaše práva (GDPR)</h2>
+      <p>MP Creative Forge nezpracovává vaše osobní údaje, takže u nás není co zpřístupnit, opravit ani smazat. Všechna data aplikace máte pod kontrolou ve svém zařízení. S dotazy k ochraně soukromí nebo k vašim právům podle GDPR nás kontaktujte na <a href="mailto:mpcreativeforge@gmail.com">mpcreativeforge@gmail.com</a>.</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">10</span>Děti</h2>
+      <p>RollForge je vhodný pro všechny věkové kategorie. Neshromažďuje osobní údaje od nikoho, ani od dětí mladších 13 let (nebo věku stanoveného ve vaší zemi).</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">11</span>Změny těchto zásad</h2>
+      <p>Pokud se zásady změní, například s novými funkcemi, aktualizovaná verze bude zveřejněna na této stránce s novým datem poslední aktualizace.</p>
+    </section>
+  </article>
+
+  <footer>
+    © 2026 MP CREATIVE FORGE ·
+    <a href="https://mpcreativeforge-arch.github.io/">MPCREATIVEFORGE-ARCH.GITHUB.IO</a>
+  </footer>
+</main>
+
+<script>
+(function () {
+  var docs = document.querySelectorAll("article[data-lang]");
+  var buttons = document.querySelectorAll("[data-set-lang]");
+
+  function show(lang) {
+    if (lang !== "cs") lang = "en";
+    docs.forEach(function (a) { a.hidden = a.getAttribute("data-lang") !== lang; });
+    buttons.forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-set-lang") === lang)); });
+    document.documentElement.lang = lang;
+    document.title = lang === "cs"
+      ? "RollForge — Zásady ochrany soukromí | MP Creative Forge"
+      : "RollForge — Privacy Policy | MP Creative Forge";
+  }
+
+  function initial() {
+    var param = new URLSearchParams(location.search).get("lang");
+    if (param) return param.toLowerCase();
+    if (location.hash === "#cs" || location.hash === "#en") return location.hash.slice(1);
+    try {
+      var saved = localStorage.getItem("rollforge-privacy-lang");
+      if (saved) return saved;
+    } catch (e) {}
+    return (navigator.language || "en").toLowerCase().indexOf("cs") === 0 ? "cs" : "en";
+  }
+
+  buttons.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var lang = b.getAttribute("data-set-lang");
+      show(lang);
+      try { localStorage.setItem("rollforge-privacy-lang", lang); } catch (e) {}
+    });
+  });
+
+  show(initial());
+})();
+</script>
+</body>
+</html>
