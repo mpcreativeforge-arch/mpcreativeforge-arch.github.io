@@ -12,12 +12,14 @@
   :root{
     --bg:#050403; --panel:#0b0805; --amber:#ffb000; --bright:#ffd37a; --hot:#ffe9b8;
     --dim:#b07a12; --muted:#6e4c0e; --faint:rgba(255,176,0,.08);
+    /* "Med a okr" tones, as in the app: cream headings, gold titles, sand text, ochre labels. */
+    --head:#fff3d6; --title:#ffdd8a; --body:#e3c48e; --label:#b98e45; --gold:#ffc21a; --edge:#8c6a30;
     --mono:"Share Tech Mono","JetBrains Mono","Fira Mono","DejaVu Sans Mono",Menlo,Consolas,"Courier New",monospace;
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
   body{
-    margin:0;min-height:100vh;background-color:var(--bg);color:var(--amber);
+    margin:0;min-height:100vh;background-color:var(--bg);color:var(--body);
     background-image:linear-gradient(rgba(255,176,0,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,176,0,.045) 1px,transparent 1px);
     background-size:24px 24px;
     font:15px/1.7 var(--mono);text-shadow:0 0 6px rgba(255,176,0,.25);
@@ -29,38 +31,38 @@
   @media (prefers-reduced-motion: reduce){body::after{display:none}}
   .wrap{width:min(100% - 32px,860px);margin:0 auto;padding:28px 0 72px}
   header,main{
-    position:relative;background:var(--panel);border:1px solid var(--dim);margin:18px 0;padding:24px 22px 22px;
+    position:relative;background:var(--panel);border:1px solid var(--edge);margin:18px 0;padding:24px 22px 22px;
     clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px);
   }
   header{text-align:center}
   .icon{width:96px;height:96px;display:block;margin:4px auto 14px;filter:drop-shadow(0 0 14px rgba(255,176,0,.3))}
-  .brand{font-size:26px;letter-spacing:.32em;color:var(--hot);text-shadow:0 0 10px rgba(255,176,0,.55)}
-  .tag{color:var(--dim);letter-spacing:.24em;font-size:12px;margin-top:6px}
+  .brand{font-size:26px;letter-spacing:.32em;color:var(--head);text-shadow:0 0 10px rgba(255,176,0,.55)}
+  .tag{color:var(--label);letter-spacing:.24em;font-size:12px;margin-top:6px}
   .lang{display:flex;gap:8px;margin:20px 0 0;justify-content:center}
   .lang button{
-    font:inherit;font-size:12px;letter-spacing:.2em;color:var(--amber);background:transparent;border:1px solid var(--dim);
+    font:inherit;font-size:12px;letter-spacing:.2em;color:var(--body);background:transparent;border:1px solid var(--edge);
     padding:8px 16px;cursor:pointer;clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);
   }
-  .lang button[aria-pressed="true"]{color:var(--hot);border-color:var(--amber);background:rgba(255,176,0,.14)}
-  h1{font-size:24px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--hot);margin:4px 0 4px}
-  h1::before{content:"> ";color:var(--dim)}
-  .meta{color:var(--dim);font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 20px}
-  h2{font-size:13px;font-weight:400;letter-spacing:.24em;text-transform:uppercase;color:var(--amber);margin:34px 0 10px;padding-bottom:8px;
+  .lang button[aria-pressed="true"]{color:var(--bg);border-color:var(--gold);background:var(--gold);text-shadow:none}
+  h1{font-size:24px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--head);margin:4px 0 4px}
+  h1::before{content:"> ";color:var(--gold)}
+  .meta{color:var(--label);font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 20px}
+  h2{font-size:13px;font-weight:400;letter-spacing:.24em;text-transform:uppercase;color:var(--head);margin:34px 0 10px;padding-bottom:8px;
      background:linear-gradient(var(--muted),var(--muted)) left bottom/100% 1px no-repeat,repeating-linear-gradient(90deg,var(--muted) 0 1px,transparent 1px 16px) left bottom/100% 4px no-repeat}
-  h2 span{color:var(--dim);margin-right:10px}
+  h2 span{color:var(--label);margin-right:10px}
   h2 span::after{content:" /"}
-  p,li{color:var(--amber)} strong{color:var(--bright);font-weight:400}
-  code{color:var(--bright);font-family:inherit}
+  p,li{color:var(--body)} strong{color:var(--title);font-weight:400}
+  code{color:var(--title);font-family:inherit}
   ul{padding-left:0;list-style:none} li{margin:6px 0;padding-left:20px;position:relative}
-  li::before{content:">";position:absolute;left:0;color:var(--dim)}
-  .box{background:var(--faint);border:1px solid var(--amber);padding:16px 18px;margin:16px 0;
+  li::before{content:">";position:absolute;left:0;color:var(--label)}
+  .box{background:var(--faint);border:1px solid var(--gold);padding:16px 18px;margin:16px 0;
        clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
   table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px}
-  td{border-top:1px dashed var(--muted);padding:10px 8px;vertical-align:top;color:var(--amber)}
-  td:first-child{width:34%;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;font-size:12px}
+  td{border-top:1px dashed var(--muted);padding:10px 8px;vertical-align:top;color:var(--body)}
+  td:first-child{width:34%;color:var(--label);letter-spacing:.1em;text-transform:uppercase;font-size:12px}
   tr:first-child td{border-top:0}
-  a{color:var(--bright)} a:hover{color:var(--hot)}
-  footer{margin-top:28px;text-align:center;color:var(--dim);font-size:11px;letter-spacing:.24em}
+  a{color:var(--title)} a:hover{color:var(--head)}
+  footer{margin-top:28px;text-align:center;color:var(--label);font-size:11px;letter-spacing:.24em}
   [hidden]{display:none!important}
   @media (max-width:520px){ td:first-child{width:40%} .brand{font-size:20px} }
 </style>
