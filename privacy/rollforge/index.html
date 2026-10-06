@@ -205,6 +205,25 @@ footer {
 }
 footer a { color: var(--amber-dim); text-decoration: none; }
 
+.home-link { color: var(--amber-dim); text-decoration: none; }
+.home-link:hover { color: var(--amber-hot); }
+
+.home-button {
+  display: block;
+  margin: 26px auto 0;
+  padding: 14px 22px;
+  max-width: 420px;
+  text-align: center;
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-decoration: none;
+  color: var(--amber-hot);
+  background: rgba(255,176,0,.16);
+  border: 1px solid var(--amber);
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+.home-button:hover { background: rgba(255,176,0,.3); color: var(--amber-hot); }
+
 [hidden] { display: none !important; }
 
 @media (max-width: 520px) {
@@ -220,7 +239,7 @@ footer a { color: var(--amber-dim); text-decoration: none; }
 <main class="page">
 
   <div class="topbar">
-    <span>MP Creative Forge</span>
+    <a class="home-link" href="https://mpcreativeforge-arch.github.io/">◂ MP Creative Forge</a>
     <span class="bars">▮▮▮▯▮▮▯▯▮▮▮▮▯▮</span>
     <div class="lang" role="group" aria-label="Language">
       <button type="button" data-set-lang="en" aria-pressed="true">EN</button>
@@ -334,6 +353,8 @@ footer a { color: var(--amber-dim); text-decoration: none; }
       <h2><span class="num">11</span>Changes to this policy</h2>
       <p>If this policy changes, for example when new features are added, the updated version will be published on this page with a new "Last updated" date.</p>
     </section>
+
+    <a class="home-button" href="https://mpcreativeforge-arch.github.io/">◂ MP CREATIVE FORGE · HOME</a>
   </article>
 
   <!-- ============================ ČESKY ============================ -->
@@ -442,6 +463,8 @@ footer a { color: var(--amber-dim); text-decoration: none; }
       <h2><span class="num">11</span>Změny těchto zásad</h2>
       <p>Pokud se zásady změní, například s novými funkcemi, aktualizovaná verze bude zveřejněna na této stránce s novým datem poslední aktualizace.</p>
     </section>
+
+    <a class="home-button" href="https://mpcreativeforge-arch.github.io/">◂ MP CREATIVE FORGE · HLAVNÍ STRÁNKA</a>
   </article>
 
   <footer>
