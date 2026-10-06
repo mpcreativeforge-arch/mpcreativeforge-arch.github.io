@@ -204,6 +204,11 @@ footer {
   color: var(--amber-muted);
 }
 footer a { color: var(--amber-dim); text-decoration: none; }
+.publisher { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 14px; text-align: left; }
+.publisher img { width: 52px; height: auto; filter: drop-shadow(0 0 6px rgba(255,176,0,.3)); }
+.publisher span { display: block; }
+.publisher .pl { font-size: 10px; letter-spacing: 4px; color: var(--amber-dim); }
+.publisher .pn { color: var(--amber); letter-spacing: 3px; }
 
 .home-link { color: var(--amber-dim); text-decoration: none; }
 .home-link:hover { color: var(--amber-hot); }
@@ -468,6 +473,14 @@ footer a { color: var(--amber-dim); text-decoration: none; }
   </article>
 
   <footer>
+    <div class="publisher">
+      <img src="../../assets/microvision-logo.png" alt="MICROVISION s.r.o. logo" width="260" height="263">
+      <div>
+        <span class="pl" data-pub-label>PUBLISHER</span>
+        <span class="pn">MICROVISION S.R.O.</span>
+        <span class="pl" data-pub-line>MP CREATIVE FORGE STUDIO</span>
+      </div>
+    </div>
     © 2026 MP CREATIVE FORGE ·
     <a href="https://mpcreativeforge-arch.github.io/">MPCREATIVEFORGE-ARCH.GITHUB.IO</a>
   </footer>
@@ -483,6 +496,7 @@ footer a { color: var(--amber-dim); text-decoration: none; }
     docs.forEach(function (a) { a.hidden = a.getAttribute("data-lang") !== lang; });
     buttons.forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-set-lang") === lang)); });
     document.documentElement.lang = lang;
+    document.querySelector("[data-pub-label]").textContent = lang === "cs" ? "VYDAVATEL" : "PUBLISHER";
     document.title = lang === "cs"
       ? "RollForge — Zásady ochrany soukromí | MP Creative Forge"
       : "RollForge — Privacy Policy | MP Creative Forge";

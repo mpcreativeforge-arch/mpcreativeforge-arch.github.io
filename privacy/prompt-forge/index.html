@@ -63,6 +63,11 @@
   tr:first-child td{border-top:0}
   a{color:var(--title)} a:hover{color:var(--head)}
   footer{margin-top:28px;text-align:center;color:var(--label);font-size:11px;letter-spacing:.24em}
+  .publisher{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:14px;text-align:left}
+  .publisher img{width:52px;height:auto;filter:drop-shadow(0 0 6px rgba(255,176,0,.3))}
+  .publisher span{display:block}
+  .publisher .pl{font-size:10px;letter-spacing:.32em;color:var(--label)}
+  .publisher .pn{color:var(--title);letter-spacing:.24em}
   [hidden]{display:none!important}
   @media (max-width:520px){ td:first-child{width:40%} .brand{font-size:20px} }
 </style>
@@ -227,7 +232,17 @@
     <p><a href="mailto:mpcreativeforge@gmail.com">mpcreativeforge@gmail.com</a> · <a href="https://mpcreativeforge-arch.github.io/">MP CREATIVE FORGE</a></p>
   </main>
 
-  <footer>MP CREATIVE FORGE · YOUR PROMPTS. YOUR DEVICE. YOUR CREATIONS.</footer>
+  <footer>
+    <div class="publisher">
+      <img src="../../assets/microvision-logo.png" alt="MICROVISION s.r.o. logo" width="260" height="263">
+      <div>
+        <span class="pl" data-pub-label>PUBLISHER</span>
+        <span class="pn">MICROVISION S.R.O.</span>
+        <span class="pl">MP CREATIVE FORGE STUDIO</span>
+      </div>
+    </div>
+    MP CREATIVE FORGE · YOUR PROMPTS. YOUR DEVICE. YOUR CREATIONS.
+  </footer>
 </div>
 
 <script>
@@ -239,6 +254,7 @@
     });
     buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.l === l)); });
     document.documentElement.lang = l;
+    document.querySelector('[data-pub-label]').textContent = l === 'cs' ? 'VYDAVATEL' : 'PUBLISHER';
   }
   buttons.forEach(function (b) { b.addEventListener('click', function () { show(b.dataset.l); }); });
   // Default: English; Czech when the browser prefers it.
