@@ -142,6 +142,7 @@ header.panel {
   text-shadow: 0 0 14px rgba(255,176,0,.6);
   line-height: 1.15;
 }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .eyebrow {
   margin-top: 6px;
   font-size: 12px;
@@ -306,7 +307,7 @@ footer {
 
     <img class="logo flicker" src="assets/mp-logo.png" alt="MP Creative Forge logo" width="320" height="141">
 
-    <h1 class="brand">MP CREATIVE FORGE</h1>
+    <h1 class="brand"><span class="visually-hidden">MP </span>CREATIVE FORGE</h1>
 
     <div class="eyebrow">
         Creative Technology Studio
