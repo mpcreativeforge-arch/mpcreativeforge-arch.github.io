@@ -296,6 +296,21 @@ footer {
   color: var(--amber-dim);
 }
 .motto { color: var(--amber); font-size: 14px; line-height: 1.9; }
+/* publisher: MICROVISION s.r.o. */
+.publisher {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin: 30px auto 0;
+  padding: 18px 22px 16px;
+  max-width: 420px;
+  border: 1px solid var(--amber-muted);
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+.publisher-label { font-size: 10px; letter-spacing: 5px; color: var(--amber-dim); }
+.publisher-logo { width: 84px; height: auto; filter: drop-shadow(0 0 8px rgba(255,176,0,.3)); }
+.publisher-line { font-size: 11px; letter-spacing: 3px; line-height: 1.6; color: var(--amber); }
 .copyright { margin-top: 18px; color: var(--amber-muted); }
 .privacy-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px 18px; margin-top: 10px; font-size: 11px; }
 .privacy-links a { color: var(--amber-dim); text-decoration: none; }
@@ -611,6 +626,12 @@ footer {
         MAKE IT SELLABLE.
     </div>
 
+    <div class="publisher">
+        <div class="publisher-label">PUBLISHER</div>
+        <img class="publisher-logo" src="assets/microvision-logo.png" alt="MICROVISION s.r.o. logo" width="260" height="263">
+        <div class="publisher-line">MP CREATIVE FORGE STUDIO · A MICROVISION S.R.O. COMPANY</div>
+    </div>
+
     <div class="copyright">
         © 2026 MP CREATIVE FORGE
     </div>
@@ -676,7 +697,9 @@ footer {
     "CREATIVE TECHNOLOGY · VISUAL SYSTEMS · DIGITAL PRODUCTS": "KREATIVNÍ TECHNOLOGIE · VIZUÁLNÍ SYSTÉMY · DIGITÁLNÍ PRODUKTY",
     "PRIVACY · MP CLEANER": "SOUKROMÍ · MP CLEANER",
     "PRIVACY · PROMPTFORGE": "SOUKROMÍ · PROMPTFORGE",
-    "PRIVACY · ROLLFORGE": "SOUKROMÍ · ROLLFORGE"
+    "PRIVACY · ROLLFORGE": "SOUKROMÍ · ROLLFORGE",
+    "PUBLISHER": "VYDAVATEL",
+    "MP CREATIVE FORGE STUDIO · A MICROVISION S.R.O. COMPANY": "MP CREATIVE FORGE STUDIO · STUDIO SPOLEČNOSTI MICROVISION S.R.O."
   };
   var MOTTO_CS = "UDĚLEJ TO FILMOVĚ.<br>UDĚLEJ TO UŽITEČNĚ.<br>UDĚLEJ TO PRODEJNĚ.";
   var TITLE = {
