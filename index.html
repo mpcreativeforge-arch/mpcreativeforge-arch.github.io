@@ -6,457 +6,288 @@
 
 <title>MP CREATIVE FORGE — Creative Technology Studio</title>
 <meta name="description" content="MP CREATIVE FORGE — Digital products, Android tools, AI systems and cinematic visual technology.">
+<meta name="theme-color" content="#050403">
+<link rel="icon" type="image/png" href="assets/favicon.png">
 
 <style>
 :root {
-    --bg: #08090b;
-    --panel: #101216;
-    --panel-hover: #15181d;
-    --line: #252a31;
-    --text: #f2f3f5;
-    --muted: #9298a1;
-    --gold: #c9a45c;
-    --gold-light: #e0c37b;
-    --cyan: #55b8c9;
+  --bg: #050403;
+  --panel: #0b0805;
+  --amber: #ffb000;
+  --amber-bright: #ffd37a;
+  --amber-hot: #ffe9b8;
+  --amber-dim: #b07a12;
+  --amber-muted: #6e4c0e;
+  --mono: "Share Tech Mono", "JetBrains Mono", "Fira Mono", "DejaVu Sans Mono", Menlo, Consolas, "Courier New", monospace;
 }
 
-* {
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 body {
-    margin: 0;
-    background:
-        radial-gradient(circle at 50% -10%, rgba(201,164,92,.09), transparent 34%),
-        radial-gradient(circle at 90% 55%, rgba(55,150,170,.035), transparent 28%),
-        var(--bg);
-    color: var(--text);
-    font-family: Arial, Helvetica, sans-serif;
-    min-height: 100vh;
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(rgba(255,176,0,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,176,0,.045) 1px, transparent 1px);
+  background-size: 24px 24px;
+  color: var(--amber);
+  font-family: var(--mono);
+  font-size: 15px;
+  line-height: 1.7;
+  text-shadow: 0 0 6px rgba(255,176,0,.25);
 }
 
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    background:
-        linear-gradient(rgba(255,255,255,.012) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.012) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: linear-gradient(to bottom, black, transparent 80%);
+/* CRT overlay: scanlines, vignette, rolling refresh band */
+body::before, body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
 }
+body::before {
+  background:
+    repeating-linear-gradient(to bottom, rgba(0,0,0,.22) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.6) 100%);
+}
+body::after {
+  height: 14vh;
+  background: linear-gradient(to bottom, transparent, rgba(255,176,0,.035), transparent);
+  animation: band 7s linear infinite;
+}
+@keyframes band { from { transform: translateY(-20vh); } to { transform: translateY(120vh); } }
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes flicker {
+  0% { opacity: 0; } 12% { opacity: .8; } 18% { opacity: .2; } 32% { opacity: 1; } 38% { opacity: .55; } 52%, 100% { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body::after { display: none; }
+  .flicker, .cursor { animation: none !important; }
+}
+
+a { color: var(--amber-bright); }
+a:hover { color: var(--amber-hot); }
 
 .container {
-    width: min(1080px, calc(100% - 40px));
-    margin: auto;
+  width: min(100% - 32px, 980px);
+  margin: 0 auto;
+  padding: 22px 0 64px;
 }
 
-/* HEADER */
-
-header {
-    text-align: center;
-    padding: 82px 0 54px;
+/* top status bar */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--amber-muted);
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--amber-dim);
+}
+.topbar .bars { color: var(--amber-muted); letter-spacing: 1px; }
+.dot::before {
+  content: "";
+  display: inline-block;
+  width: 6px; height: 6px;
+  margin: 0 7px 1px 0;
+  background: var(--amber);
+  box-shadow: 0 0 6px var(--amber);
 }
 
+/* chamfered HUD panel */
+.panel {
+  position: relative;
+  display: block;
+  padding: 22px;
+  background: var(--panel);
+  border: 1px solid var(--amber-dim);
+  clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+  color: inherit;
+  text-decoration: none;
+}
+.panel::before, .panel::after {
+  content: "";
+  position: absolute;
+  width: 20px; height: 1px;
+  background: var(--amber-dim);
+  transform: rotate(-45deg);
+}
+.panel::before { top: 6px; left: -3px; }
+.panel::after { bottom: 6px; right: -3px; }
+a.panel:hover { border-color: var(--amber); background: #120c04; }
+a.panel:hover h2 { color: var(--amber-hot); }
+
+/* hero */
+header.panel {
+  margin-top: 22px;
+  padding: 40px 24px 34px;
+  text-align: center;
+}
+.logo {
+  width: 150px;
+  max-width: 50%;
+  height: auto;
+  filter: drop-shadow(0 0 12px rgba(255,176,0,.35));
+}
+.flicker { animation: flicker 1.1s ease-out both; }
 .brand {
-    font-size: clamp(25px, 5vw, 44px);
-    font-weight: 700;
-    letter-spacing: .20em;
-    margin-left: .20em;
+  margin-top: 16px;
+  font-size: clamp(26px, 6vw, 46px);
+  letter-spacing: 8px;
+  color: var(--amber-bright);
+  text-shadow: 0 0 14px rgba(255,176,0,.6);
+  line-height: 1.15;
 }
-
 .eyebrow {
-    margin-top: 18px;
-    color: var(--gold);
-    font-size: 11px;
-    letter-spacing: .34em;
-    text-transform: uppercase;
+  margin-top: 6px;
+  font-size: 12px;
+  letter-spacing: 6px;
+  color: var(--amber-dim);
+  text-transform: uppercase;
 }
-
-.hero-line {
-    width: 70px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    margin: 27px auto;
-}
-
 .hero-title {
-    font-size: clamp(16px, 2.8vw, 23px);
-    letter-spacing: .18em;
-    font-weight: 400;
-    text-transform: uppercase;
+  margin-top: 26px;
+  font-size: clamp(18px, 4vw, 26px);
+  letter-spacing: 6px;
+  color: var(--amber);
 }
-
+.cursor { animation: blink 1s steps(1) infinite; }
 .hero-text {
-    max-width: 650px;
-    margin: 17px auto 0;
-    color: var(--muted);
-    line-height: 1.7;
-    font-size: 14px;
+  max-width: 620px;
+  margin: 14px auto 0;
+  color: var(--amber);
 }
+.boot {
+  max-width: 420px;
+  margin: 26px auto 0;
+  text-align: left;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--amber-dim);
+}
+.boot .meter {
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+  gap: 2px;
+  margin: 6px 0;
+  height: 8px;
+}
+.boot .meter span { background: var(--amber); }
+.boot .meter span.off { background: rgba(110,76,14,.35); }
+.boot .row { display: flex; justify-content: space-between; }
 
-/* SECTION */
-
+/* section label */
 .section-label {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin: 30px 0 18px;
-    color: var(--muted);
-    font-size: 10px;
-    letter-spacing: .25em;
-    text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 40px 0 14px;
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: var(--amber-dim);
+  text-transform: uppercase;
 }
-
+.section-label::before { content: "▌"; color: var(--amber); }
 .section-label::after {
-    content: "";
-    height: 1px;
-    flex: 1;
-    background: var(--line);
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: repeating-linear-gradient(90deg, var(--amber-muted) 0 12px, transparent 12px 16px);
 }
 
-/* FEATURE */
-
-.feature {
-    position: relative;
-    overflow: hidden;
-    border: 1px solid rgba(201,164,92,.34);
-    background:
-        linear-gradient(135deg, rgba(201,164,92,.055), transparent 42%),
-        var(--panel);
-    padding: 34px;
-    border-radius: 4px;
+/* features */
+.features { display: grid; gap: 16px; }
+.feature { display: grid; grid-template-columns: 1fr; gap: 6px; }
+.feature.with-icon { grid-template-columns: 96px 1fr; gap: 6px 22px; align-items: start; }
+.feature .icon {
+  width: 96px; height: 96px;
+  grid-row: span 5;
+  filter: drop-shadow(0 0 10px rgba(255,176,0,.3));
 }
-
-.feature::after {
-    content: "PRO";
-    position: absolute;
-    right: 27px;
-    top: 25px;
-    color: rgba(201,164,92,.18);
-    font-size: 52px;
-    font-weight: 800;
-    letter-spacing: .08em;
+.number { font-size: 11px; letter-spacing: 3px; color: var(--amber-dim); }
+h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: normal;
+  letter-spacing: 4px;
+  color: var(--amber-bright);
 }
-
-.feature-number {
-    color: var(--gold);
-    font-size: 10px;
-    letter-spacing: .25em;
+h3 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: normal;
+  letter-spacing: 3px;
+  color: var(--amber-dim);
+  text-transform: uppercase;
 }
+p { margin: 6px 0 0; }
 
-.feature h2 {
-    position: relative;
-    margin: 12px 0 8px;
-    font-size: 27px;
-    letter-spacing: .12em;
-}
-
-.feature h3 {
-    position: relative;
-    margin: 0 0 17px;
-    color: var(--muted);
-    font-size: 12px;
-    font-weight: 400;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-}
-
-.feature p {
-    position: relative;
-    max-width: 650px;
-    color: #b5bac2;
-    line-height: 1.65;
-    font-size: 14px;
-}
-
-.buttons {
-    position: relative;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 26px;
-}
-
+.buttons { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
 .button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 145px;
-    padding: 13px 19px;
-    border: 1px solid var(--line);
-    color: var(--text);
-    text-decoration: none;
-    font-size: 10px;
-    letter-spacing: .20em;
-    text-transform: uppercase;
-    transition: .25s ease;
+  display: inline-block;
+  padding: 10px 18px;
+  border: 1px solid var(--amber-dim);
+  color: var(--amber);
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-decoration: none;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
 }
+.button:hover { border-color: var(--amber); color: var(--amber-hot); background: rgba(255,176,0,.12); }
+.button.primary { border-color: var(--amber); background: rgba(255,176,0,.16); color: var(--amber-hot); }
+.button.primary:hover { background: rgba(255,176,0,.3); }
+.button.soon { color: var(--amber-dim); border-color: var(--amber-muted); border-style: dashed; }
 
-.button:hover {
-    border-color: var(--gold);
-    background: rgba(201,164,92,.07);
-    color: var(--gold-light);
-    transform: translateY(-2px);
-}
-
-.button.primary {
-    border-color: var(--gold);
-    background: rgba(201,164,92,.08);
-}
-
-/* GRID */
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-}
-
-.card {
-    display: block;
-    min-height: 155px;
-    padding: 27px;
-    border: 1px solid var(--line);
-    background: rgba(16,18,22,.86);
-    color: var(--text);
-    text-decoration: none;
-    transition: .25s ease;
-}
-
-.card:hover {
-    background: var(--panel-hover);
-    border-color: #454b54;
-    transform: translateY(-2px);
-}
-
-.card-number {
-    color: var(--gold);
-    font-size: 9px;
-    letter-spacing: .25em;
-}
-
-.card h2 {
-    margin: 14px 0 9px;
-    font-size: 17px;
-    letter-spacing: .13em;
-}
-
-.card p {
-    margin: 0;
-    color: var(--muted);
-    line-height: 1.55;
-    font-size: 12px;
-}
-
-/* CINEMATIC */
-
-.cinematic {
-    margin-top: 14px;
-    padding: 30px;
-    border: 1px solid var(--line);
-    background:
-        linear-gradient(110deg, rgba(60,150,170,.045), transparent 45%),
-        var(--panel);
-}
-
-.cinematic h2 {
-    margin: 0 0 9px;
-    font-size: 18px;
-    letter-spacing: .15em;
-}
-
-.cinematic p {
-    max-width: 680px;
-    color: var(--muted);
-    line-height: 1.65;
-    font-size: 13px;
-}
-
-.cinematic .tagline {
-    margin-top: 21px;
-    color: var(--cyan);
-    font-size: 10px;
-    letter-spacing: .23em;
-}
-
-/* SOCIAL */
-
-.social {
-    display: flex;
-    justify-content: center;
-    gap: 9px;
-    flex-wrap: wrap;
-    margin: 28px 0 20px;
-}
-
-.social a {
-    color: #aeb3bb;
-    border: 1px solid var(--line);
-    padding: 11px 16px;
-    text-decoration: none;
-    font-size: 9px;
-    letter-spacing: .19em;
-    transition: .2s ease;
-}
-
-.social a:hover {
-    color: var(--gold-light);
-    border-color: var(--gold);
-}
-
-/* FOOTER */
-
-footer {
-    text-align: center;
-    padding: 52px 0 35px;
-}
-
-.footer-line {
-    width: 100%;
-    height: 1px;
-    background: var(--line);
-    margin-bottom: 30px;
-}
-
-.motto {
-    color: var(--gold);
-    font-size: 10px;
-    letter-spacing: .28em;
-    line-height: 2.2;
-}
-
-.copyright {
-    margin-top: 24px;
-    color: #626871;
-    font-size: 9px;
-    letter-spacing: .15em;
-}
-
-.privacy {
-    display: inline-block;
-    margin-top: 15px;
-    color: #777d86;
-    text-decoration: none;
-    font-size: 9px;
-    letter-spacing: .16em;
-}
-
-.privacy:hover {
-    color: var(--gold);
-}
-
-/* SECOND FEATURE + PRIVACY LINKS */
-
-.feature + .feature {
-    margin-top: 14px;
-}
-
-.feature.forge::after {
-    content: "AI";
-}
-
-.button.soon {
-    color: var(--muted);
-    cursor: default;
-}
-
-.button.soon:hover {
-    transform: none;
-    border-color: var(--line);
-    background: transparent;
-    color: var(--muted);
-}
-
-.card.static:hover {
-    background: rgba(16,18,22,.86);
-    border-color: var(--line);
-    transform: none;
-}
-
-.card-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 18px;
-}
-
+/* hub grid */
+.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.grid .panel { display: flex; flex-direction: column; gap: 6px; }
+.card-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
 .card-links a {
-    color: var(--gold);
-    border: 1px solid var(--line);
-    padding: 9px 13px;
-    text-decoration: none;
-    font-size: 9px;
-    letter-spacing: .19em;
-    transition: .2s ease;
+  font-size: 11px;
+  letter-spacing: 2px;
+  padding: 5px 10px;
+  border: 1px solid var(--amber-muted);
+  text-decoration: none;
+  color: var(--amber);
 }
+.card-links a:hover { border-color: var(--amber); color: var(--amber-hot); }
 
-.card-links a:hover {
-    border-color: var(--gold);
-    color: var(--gold-light);
+/* cinematic */
+.cinematic { margin-top: 40px; text-align: center; padding: 34px 24px; }
+.cinematic h2 { font-size: 26px; letter-spacing: 8px; }
+.cinematic p { max-width: 680px; margin: 12px auto 0; }
+.tagline { margin-top: 18px; font-size: 11px; letter-spacing: 3px; color: var(--amber-dim); }
+
+/* social */
+.social { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
+
+/* footer */
+footer {
+  margin-top: 40px;
+  padding-top: 22px;
+  border-top: 1px solid var(--amber-muted);
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: var(--amber-dim);
 }
+.motto { color: var(--amber); font-size: 14px; line-height: 1.9; }
+.copyright { margin-top: 18px; color: var(--amber-muted); }
+.privacy-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px 18px; margin-top: 10px; font-size: 11px; }
+.privacy-links a { color: var(--amber-dim); text-decoration: none; }
+.privacy-links a:hover { color: var(--amber-hot); }
 
-.privacy + .privacy {
-    margin-left: 18px;
-}
-
-/* MOBILE */
-
-@media (max-width: 650px) {
-
-    .container {
-        width: min(100% - 26px, 1080px);
-    }
-
-    header {
-        padding: 58px 0 38px;
-    }
-
-    .brand {
-        font-size: 22px;
-        letter-spacing: .16em;
-    }
-
-    .hero-title {
-        font-size: 13px;
-        letter-spacing: .13em;
-    }
-
-    .hero-text {
-        font-size: 13px;
-    }
-
-    .grid {
-        grid-template-columns: 1fr;
-    }
-
-    .feature {
-        padding: 25px;
-    }
-
-    .feature::after {
-        font-size: 40px;
-        right: 17px;
-        top: 20px;
-    }
-
-    .feature h2 {
-        font-size: 22px;
-    }
-
-    .button {
-        flex: 1;
-        min-width: 120px;
-    }
-
-    .cinematic {
-        padding: 25px;
-    }
+@media (max-width: 640px) {
+  body { font-size: 14px; }
+  .grid { grid-template-columns: 1fr; }
+  .feature.with-icon { grid-template-columns: 64px 1fr; gap: 4px 14px; }
+  .feature .icon { width: 64px; height: 64px; }
+  .topbar .bars { display: none; }
+  h2 { font-size: 19px; letter-spacing: 3px; }
 }
 </style>
 </head>
@@ -465,18 +296,24 @@ footer {
 
 <main class="container">
 
-<header>
+<div class="topbar">
+    <span>MP CREATIVE FORGE</span>
+    <span class="bars">▮▮▮▯▮▮▯▯▮▮▮▮▯▮▮▯</span>
+    <span class="dot">ONLINE</span>
+</div>
 
-    <div class="brand">MP CREATIVE FORGE</div>
+<header class="panel">
+
+    <img class="logo flicker" src="assets/mp-logo.png" alt="MP Creative Forge logo" width="320" height="141">
+
+    <h1 class="brand">MP CREATIVE FORGE</h1>
 
     <div class="eyebrow">
         Creative Technology Studio
     </div>
 
-    <div class="hero-line"></div>
-
     <div class="hero-title">
-        BUILD. CREATE. FORGE.
+        BUILD. CREATE. FORGE.<span class="cursor">_</span>
     </div>
 
     <p class="hero-text">
@@ -484,80 +321,129 @@ footer {
         built to turn ideas into useful creative technology.
     </p>
 
+    <div class="boot" aria-hidden="true">
+        <div class="row"><span>SYSTEMS</span><span>100%</span></div>
+        <div class="meter">
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="row"><span>CORE · ONLINE</span><span>FORGE · READY</span></div>
+    </div>
+
 </header>
 
 
-<!-- FEATURED PRODUCT -->
+<!-- FEATURED PRODUCTS -->
 
 <div class="section-label">
     Featured
 </div>
 
-<section class="feature">
+<div class="features">
 
-    <div class="feature-number">01 / ANDROID TOOL</div>
+    <section class="panel feature">
 
-    <h2>MP CLEANER</h2>
+        <div class="number">01 / ANDROID TOOL</div>
 
-    <h3>Android Storage &amp; Device Utility</h3>
+        <h2>MP CLEANER</h2>
 
-    <p>
-        Clean smarter. Understand your storage. Find large files,
-        screenshots and exact duplicates — with powerful device
-        insights and useful tools designed for everyday Android users.
-    </p>
+        <h3>Android Storage &amp; Device Utility</h3>
 
-    <div class="buttons">
+        <p>
+            Clean smarter. Understand your storage. Find large files,
+            screenshots and exact duplicates — with powerful device
+            insights and useful tools designed for everyday Android users.
+        </p>
 
-        <a class="button" 
-           href="https://forgecraft10.gumroad.com/l/hymlu"
-           target="_blank"
-           rel="noopener">
-            GET FREE
-        </a>
+        <div class="buttons">
 
-        <a class="button primary"
-           href="https://forgecraft10.gumroad.com/l/jkwzxy"
-           target="_blank"
-           rel="noopener">
-            GET PRO · $12
-        </a>
+            <a class="button"
+               href="https://forgecraft10.gumroad.com/l/hymlu"
+               target="_blank"
+               rel="noopener">
+                GET FREE
+            </a>
 
-    </div>
+            <a class="button primary"
+               href="https://forgecraft10.gumroad.com/l/jkwzxy"
+               target="_blank"
+               rel="noopener">
+                GET PRO · $12
+            </a>
 
-</section>
+        </div>
 
-<section class="feature forge">
+    </section>
 
-    <div class="feature-number">02 / ANDROID APP</div>
+    <section class="panel feature">
 
-    <h2>PROMPT FORGE</h2>
+        <div class="number">02 / ANDROID APP</div>
 
-    <h3>Your AI Prompt Vault</h3>
+        <h2>PROMPT FORGE</h2>
 
-    <p>
-        Save it. Find it. Create. A private vault for your AI prompts —
-        save, search, organise and version them, copy in one tap and
-        export them any time. Everything stays on your device: no account,
-        no cloud, no ads, no permissions.
-    </p>
+        <h3>Your AI Prompt Vault</h3>
 
-    <div class="buttons">
+        <p>
+            Save it. Find it. Create. A private vault for your AI prompts —
+            save, search, organise and version them, copy in one tap and
+            export them any time. Everything stays on your device: no account,
+            no cloud, no ads, no permissions.
+        </p>
 
-        <span class="button soon">
-            COMING SOON
-        </span>
+        <div class="buttons">
 
-        <a class="button primary"
-           href="https://mpcreativeforge-arch.github.io/privacy/prompt-forge/"
-           target="_blank"
-           rel="noopener">
-            PRIVACY POLICY
-        </a>
+            <span class="button soon">
+                COMING SOON
+            </span>
 
-    </div>
+            <a class="button primary"
+               href="https://mpcreativeforge-arch.github.io/privacy/prompt-forge/"
+               target="_blank"
+               rel="noopener">
+                PRIVACY POLICY
+            </a>
 
-</section>
+        </div>
+
+    </section>
+
+    <section class="panel feature with-icon">
+
+        <img class="icon" src="assets/rollforge-icon.png" alt="RollForge app icon" width="192" height="192">
+
+        <div class="number">03 / ANDROID APP</div>
+
+        <h2>ROLLFORGE</h2>
+
+        <h3>Dice Utility</h3>
+
+        <p>
+            Roll with style. D4 to D20, several dice at once, live
+            statistics and roll history — in a retro sci‑fi terminal
+            interface with sound and haptics. Fully offline: no account,
+            no ads, no tracking.
+        </p>
+
+        <div class="buttons">
+
+            <span class="button soon">
+                COMING SOON
+            </span>
+
+            <a class="button primary"
+               href="https://mpcreativeforge-arch.github.io/privacy/rollforge/"
+               target="_blank"
+               rel="noopener">
+                PRIVACY POLICY
+            </a>
+
+        </div>
+
+    </section>
+
+</div>
 
 
 <!-- HUB -->
@@ -568,12 +454,12 @@ footer {
 
 <section class="grid">
 
-    <a class="card"
+    <a class="panel"
        href="https://forgecraft10.gumroad.com/"
        target="_blank"
        rel="noopener">
 
-        <div class="card-number">03 / STORE</div>
+        <div class="number">04 / STORE</div>
 
         <h2>DIGITAL PRODUCTS</h2>
 
@@ -585,9 +471,9 @@ footer {
     </a>
 
 
-    <a class="card" href="#cinematic">
+    <a class="panel" href="#cinematic">
 
-        <div class="card-number">04 / CREATIVE</div>
+        <div class="number">05 / CREATIVE</div>
 
         <h2>CINEMATIC AI</h2>
 
@@ -599,10 +485,10 @@ footer {
     </a>
 
 
-    <a class="card"
+    <a class="panel"
        href="mailto:mpcreativeforge@gmail.com">
 
-        <div class="card-number">05 / CONTACT</div>
+        <div class="number">06 / CONTACT</div>
 
         <h2>GET IN TOUCH</h2>
 
@@ -614,9 +500,9 @@ footer {
     </a>
 
 
-    <div class="card static">
+    <div class="panel">
 
-        <div class="card-number">06 / PRIVACY</div>
+        <div class="number">07 / PRIVACY</div>
 
         <h2>PRIVACY &amp; SECURITY</h2>
 
@@ -632,6 +518,9 @@ footer {
             <a href="https://mpcreativeforge-arch.github.io/privacy/prompt-forge/"
                target="_blank"
                rel="noopener">PROMPT FORGE</a>
+            <a href="https://mpcreativeforge-arch.github.io/privacy/rollforge/"
+               target="_blank"
+               rel="noopener">ROLLFORGE</a>
         </div>
 
     </div>
@@ -641,7 +530,7 @@ footer {
 
 <!-- CINEMATIC -->
 
-<section class="cinematic" id="cinematic">
+<section class="panel cinematic" id="cinematic">
 
     <h2>CINEMATIC AI</h2>
 
@@ -662,19 +551,22 @@ footer {
 
 <div class="social">
 
-    <a href="https://www.facebook.com/share/19otzVTKPP/"
+    <a class="button"
+       href="https://www.facebook.com/share/19otzVTKPP/"
        target="_blank"
        rel="noopener">
         FACEBOOK
     </a>
 
-    <a href="https://www.instagram.com/mp.creative.forge?stkn=YXJyazFtN3ozc21w"
+    <a class="button"
+       href="https://www.instagram.com/mp.creative.forge?stkn=YXJyazFtN3ozc21w"
        target="_blank"
        rel="noopener">
         INSTAGRAM
     </a>
 
-    <a href="https://www.tiktok.com/@mp.creative.forge?_r=1&_t=ZN-9AGIVg1AxC2"
+    <a class="button"
+       href="https://www.tiktok.com/@mp.creative.forge?_r=1&_t=ZN-9AGIVg1AxC2"
        target="_blank"
        rel="noopener">
         TIKTOK
@@ -684,8 +576,6 @@ footer {
 
 
 <footer>
-
-    <div class="footer-line"></div>
 
     <div class="motto">
         MAKE IT CINEMATIC.<br>
@@ -697,19 +587,17 @@ footer {
         © 2026 MP CREATIVE FORGE
     </div>
 
-    <a class="privacy"
-       href="https://mpcreativeforge-arch.github.io/privacy/mp-cleaner/"
-       target="_blank"
-       rel="noopener">
-        PRIVACY · MP CLEANER
-    </a>
-
-    <a class="privacy"
-       href="https://mpcreativeforge-arch.github.io/privacy/prompt-forge/"
-       target="_blank"
-       rel="noopener">
-        PRIVACY · PROMPT FORGE
-    </a>
+    <div class="privacy-links">
+        <a href="https://mpcreativeforge-arch.github.io/privacy/mp-cleaner/"
+           target="_blank"
+           rel="noopener">PRIVACY · MP CLEANER</a>
+        <a href="https://mpcreativeforge-arch.github.io/privacy/prompt-forge/"
+           target="_blank"
+           rel="noopener">PRIVACY · PROMPT FORGE</a>
+        <a href="https://mpcreativeforge-arch.github.io/privacy/rollforge/"
+           target="_blank"
+           rel="noopener">PRIVACY · ROLLFORGE</a>
+    </div>
 
 </footer>
 
