@@ -89,6 +89,21 @@ a:hover { color: var(--amber-hot); }
   color: var(--amber-dim);
 }
 .topbar .bars { color: var(--amber-muted); letter-spacing: 1px; }
+.topbar-right { display: flex; align-items: center; gap: 14px; }
+.lang { display: flex; gap: 5px; }
+.lang button {
+  font: inherit;
+  font-size: 11px;
+  letter-spacing: 2px;
+  padding: 4px 10px;
+  color: var(--amber);
+  background: transparent;
+  border: 1px solid var(--amber-dim);
+  cursor: pointer;
+  clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px);
+}
+.lang button:hover { border-color: var(--amber); color: var(--amber-hot); }
+.lang button[aria-pressed="true"] { background: rgba(255,176,0,.18); color: var(--amber-hot); border-color: var(--amber); }
 .dot::before {
   content: "";
   display: inline-block;
@@ -178,7 +193,11 @@ header.panel {
   height: 8px;
 }
 .boot .meter span { background: var(--amber); }
+.boot .meter span { transition: background .08s, box-shadow .08s; }
 .boot .meter span.off { background: rgba(110,76,14,.35); }
+.boot .meter span.lit { box-shadow: 0 0 6px var(--amber); }
+.boot.done .meter { animation: meterflash .5s ease-out; }
+@keyframes meterflash { 0% { filter: brightness(1.8); } 100% { filter: none; } }
 .boot .row { display: flex; justify-content: space-between; }
 
 /* section label */
@@ -300,7 +319,13 @@ footer {
 <div class="topbar">
     <span>MP CREATIVE FORGE</span>
     <span class="bars">▮▮▮▯▮▮▯▯▮▮▮▮▯▮▮▯</span>
-    <span class="dot">ONLINE</span>
+    <div class="topbar-right">
+        <div class="lang" role="group" aria-label="Language">
+            <button type="button" data-set-lang="en" aria-pressed="true">EN</button>
+            <button type="button" data-set-lang="cs" aria-pressed="false">CZ</button>
+        </div>
+        <span class="dot">ONLINE</span>
+    </div>
 </div>
 
 <header class="panel">
@@ -323,14 +348,14 @@ footer {
     </p>
 
     <div class="boot" aria-hidden="true">
-        <div class="row"><span>SYSTEMS</span><span>100%</span></div>
-        <div class="meter">
+        <div class="row"><span>SYSTEMS</span><span id="boot-pct">100%</span></div>
+        <div class="meter" id="boot-meter">
             <span></span><span></span><span></span><span></span><span></span><span></span>
             <span></span><span></span><span></span><span></span><span></span><span></span>
             <span></span><span></span><span></span><span></span><span></span><span></span>
             <span></span><span></span><span></span><span></span><span></span><span></span>
         </div>
-        <div class="row"><span>CORE · ONLINE</span><span>FORGE · READY</span></div>
+        <div class="row"><span id="boot-left">CORE · ONLINE</span><span id="boot-right">FORGE · READY</span></div>
     </div>
 
 </header>
@@ -578,7 +603,7 @@ footer {
 
 <footer>
 
-    <div class="motto">
+    <div class="motto" id="motto">
         MAKE IT CINEMATIC.<br>
         MAKE IT USEFUL.<br>
         MAKE IT SELLABLE.
@@ -603,6 +628,157 @@ footer {
 </footer>
 
 </main>
+
+<script>
+(function () {
+  /* ---------- Czech translation (English is the page's own text) ---------- */
+  var CS = {
+    "Creative Technology Studio": "Studio kreativních technologií",
+    "Digital products, Android tools and cinematic AI systems built to turn ideas into useful creative technology.":
+      "Digitální produkty, nástroje pro Android a filmové AI systémy, které proměňují nápady v užitečné kreativní technologie.",
+    "Featured": "Doporučujeme",
+    "Explore": "Prozkoumat",
+    "01 / ANDROID TOOL": "01 / NÁSTROJ PRO ANDROID",
+    "02 / ANDROID APP": "02 / APLIKACE PRO ANDROID",
+    "03 / ANDROID APP": "03 / APLIKACE PRO ANDROID",
+    "Android Storage & Device Utility": "Správa úložiště a zařízení pro Android",
+    "Clean smarter. Understand your storage. Find large files, screenshots and exact duplicates — with powerful device insights and useful tools designed for everyday Android users.":
+      "Čistěte chytřeji. Poznejte své úložiště. Najděte velké soubory, snímky obrazovky a přesné duplikáty – s podrobným přehledem o zařízení a užitečnými nástroji pro každodenní uživatele Androidu.",
+    "GET FREE": "ZDARMA",
+    "GET PRO · $12": "VERZE PRO · $12",
+    "Your AI Prompt Vault": "Váš trezor AI promptů",
+    "Save it. Find it. Create. A private vault for your AI prompts — save, search, organise and version them, copy in one tap and export them any time. Everything stays on your device: no account, no cloud, no ads, no permissions.":
+      "Uložte. Najděte. Tvořte. Soukromý trezor pro vaše AI prompty – ukládejte, vyhledávejte, třiďte a verzujte je, kopírujte jedním klepnutím a kdykoli exportujte. Vše zůstává ve vašem zařízení: žádný účet, žádný cloud, žádné reklamy, žádná oprávnění.",
+    "COMING SOON": "JIŽ BRZY",
+    "PRIVACY POLICY": "ZÁSADY SOUKROMÍ",
+    "Dice Utility": "Herní kostky",
+    "Roll with style. D4 to D20, several dice at once, live statistics and roll history — in a retro sci‑fi terminal interface with sound and haptics. Fully offline: no account, no ads, no tracking.":
+      "Házejte se stylem. Kostky D4 až D20, více kostek najednou, živé statistiky a historie hodů – v retro sci‑fi terminálovém rozhraní se zvukem a vibracemi. Plně offline: žádný účet, žádné reklamy, žádné sledování.",
+    "04 / STORE": "04 / OBCHOD",
+    "DIGITAL PRODUCTS": "DIGITÁLNÍ PRODUKTY",
+    "Premium AI systems, creative tools, workflows and digital products by MP CREATIVE FORGE.":
+      "Prémiové AI systémy, kreativní nástroje, pracovní postupy a digitální produkty od MP CREATIVE FORGE.",
+    "05 / CREATIVE": "05 / TVORBA",
+    "AI video, cinematic visuals, VFX, advertising concepts and visual storytelling.":
+      "AI video, filmové vizuály, VFX, reklamní koncepty a vizuální vyprávění.",
+    "06 / CONTACT": "06 / KONTAKT",
+    "GET IN TOUCH": "NAPIŠTE NÁM",
+    "Business inquiries, creative projects, collaborations and product support.":
+      "Obchodní dotazy, kreativní projekty, spolupráce a podpora produktů.",
+    "07 / PRIVACY": "07 / SOUKROMÍ",
+    "PRIVACY & SECURITY": "SOUKROMÍ A BEZPEČNOST",
+    "Read the privacy policies and learn how your data is handled.":
+      "Přečtěte si zásady ochrany soukromí a zjistěte, jak nakládáme s vašimi daty.",
+    "From product advertising and cinematic AI video to visual stories, VFX and original creative systems — MP CREATIVE FORGE builds technology around the final result, not the prompt.":
+      "Od produktové reklamy a filmového AI videa po vizuální příběhy, VFX a originální kreativní systémy – MP CREATIVE FORGE staví technologie kolem výsledku, ne kolem promptu.",
+    "CREATIVE TECHNOLOGY · VISUAL SYSTEMS · DIGITAL PRODUCTS": "KREATIVNÍ TECHNOLOGIE · VIZUÁLNÍ SYSTÉMY · DIGITÁLNÍ PRODUKTY",
+    "PRIVACY · MP CLEANER": "SOUKROMÍ · MP CLEANER",
+    "PRIVACY · PROMPT FORGE": "SOUKROMÍ · PROMPT FORGE",
+    "PRIVACY · ROLLFORGE": "SOUKROMÍ · ROLLFORGE"
+  };
+  var MOTTO_CS = "UDĚLEJ TO FILMOVĚ.<br>UDĚLEJ TO UŽITEČNĚ.<br>UDĚLEJ TO PRODEJNĚ.";
+  var TITLE = {
+    en: "MP CREATIVE FORGE — Creative Technology Studio",
+    cs: "MP CREATIVE FORGE — Studio kreativních technologií"
+  };
+  var BOOT = {
+    en: { steps: ["INITIALIZING", "LOADING MODULES", "CALIBRATING", "LINKING CORE"], left: "CORE · ONLINE", right: "FORGE · READY" },
+    cs: { steps: ["INICIALIZACE", "NAČÍTÁNÍ MODULŮ", "KALIBRACE", "PROPOJENÍ JÁDRA"], left: "JÁDRO · ONLINE", right: "FORGE · PŘIPRAVENO" }
+  };
+
+  var norm = function (t) { return t.replace(/\s+/g, " ").trim(); };
+  var leaves = [];
+  document.querySelectorAll("main *").forEach(function (el) {
+    if (el.children.length === 0 && !el.closest(".boot") && !el.closest(".lang")) {
+      var key = norm(el.textContent);
+      if (CS[key]) leaves.push({ el: el, en: el.textContent, cs: CS[key] });
+    }
+  });
+  var motto = document.getElementById("motto");
+  var mottoEn = motto ? motto.innerHTML : "";
+  var rollforgePrivacy = document.querySelectorAll('a[href$="/privacy/rollforge/"], a[href$="/privacy/rollforge/?lang=cs"]');
+  var buttons = document.querySelectorAll("[data-set-lang]");
+  var lang = "en";
+  var booted = false;
+
+  function apply(next) {
+    lang = next === "cs" ? "cs" : "en";
+    leaves.forEach(function (l) { l.el.textContent = lang === "cs" ? l.cs : l.en; });
+    if (motto) motto.innerHTML = lang === "cs" ? MOTTO_CS : mottoEn;
+    rollforgePrivacy.forEach(function (a) {
+      a.href = "https://mpcreativeforge-arch.github.io/privacy/rollforge/" + (lang === "cs" ? "?lang=cs" : "");
+    });
+    buttons.forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-set-lang") === lang)); });
+    document.documentElement.lang = lang;
+    document.title = TITLE[lang];
+    if (booted) {
+      document.getElementById("boot-left").textContent = BOOT[lang].left;
+      document.getElementById("boot-right").textContent = BOOT[lang].right;
+    }
+  }
+
+  function initialLang() {
+    var param = new URLSearchParams(location.search).get("lang");
+    if (param) return param.toLowerCase();
+    try {
+      var saved = localStorage.getItem("mpcf-lang");
+      if (saved) return saved;
+    } catch (e) {}
+    return (navigator.language || "en").toLowerCase().indexOf("cs") === 0 ? "cs" : "en";
+  }
+
+  buttons.forEach(function (b) {
+    b.addEventListener("click", function () {
+      apply(b.getAttribute("data-set-lang"));
+      try { localStorage.setItem("mpcf-lang", lang); } catch (e) {}
+    });
+  });
+
+  apply(initialLang());
+
+  /* ---------- boot meter: fills from 0 to 100 % on load ---------- */
+  var boot = document.querySelector(".boot");
+  var cells = document.querySelectorAll("#boot-meter span");
+  var pct = document.getElementById("boot-pct");
+  var left = document.getElementById("boot-left");
+  var right = document.getElementById("boot-right");
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function finish() {
+    booted = true;
+    cells.forEach(function (c) { c.className = ""; });
+    pct.textContent = "100%";
+    left.textContent = BOOT[lang].left;
+    right.textContent = BOOT[lang].right;
+    boot.classList.add("done");
+  }
+
+  if (reduce || !window.requestAnimationFrame) { finish(); return; }
+
+  var DURATION = 1800, DELAY = 450;
+  var start = null;
+  cells.forEach(function (c) { c.className = "off"; });
+  pct.textContent = "0%";
+  left.textContent = BOOT[lang].steps[0];
+  right.textContent = "···";
+
+  function frame(now) {
+    if (start === null) start = now;
+    var t = Math.min(1, Math.max(0, (now - start - DELAY) / DURATION));
+    // Uneven, stepped progress like a real boot sequence.
+    var p = t < 1 ? Math.min(0.99, t + 0.04 * Math.sin(t * 19)) : 1;
+    var lit = Math.round(p * cells.length);
+    cells.forEach(function (c, i) {
+      c.className = i < lit ? (i === lit - 1 && t < 1 ? "lit" : "") : "off";
+    });
+    pct.textContent = Math.round(p * 100) + "%";
+    var steps = BOOT[lang].steps;
+    left.textContent = steps[Math.min(steps.length - 1, Math.floor(p * steps.length))];
+    if (t < 1) requestAnimationFrame(frame); else finish();
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
 
 </body>
 </html>
