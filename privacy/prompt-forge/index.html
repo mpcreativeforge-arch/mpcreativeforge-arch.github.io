@@ -6,42 +6,69 @@
 <title>PROMPTFORGE – Privacy Policy | MP CREATIVE FORGE</title>
 <meta name="description" content="Privacy policy of PROMPTFORGE, the local-first Android prompt vault by MP CREATIVE FORGE.">
 <meta name="robots" content="index,follow">
+<meta name="theme-color" content="#050403">
 <style>
+  /* MP Forge HUD: amber phosphor on black, chamfered panels, monospace, CRT overlay. */
   :root{
-    --bg:#0a0b0d; --surface:#101216; --border:#23272e; --text:#f2f2f0; --dim:#aeb2ba; --faint:#7d828b; --gold:#c9a55c;
-  }
-  @media (prefers-color-scheme: light){
-    :root{ --bg:#f6f5f1; --surface:#ffffff; --border:#dcd9d0; --text:#16171a; --dim:#4a4e56; --faint:#6b707a; --gold:#8a6a1f; }
+    --bg:#050403; --panel:#0b0805; --amber:#ffb000; --bright:#ffd37a; --hot:#ffe9b8;
+    --dim:#b07a12; --muted:#6e4c0e; --faint:rgba(255,176,0,.08);
+    --mono:"Share Tech Mono","JetBrains Mono","Fira Mono","DejaVu Sans Mono",Menlo,Consolas,"Courier New",monospace;
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
-  body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-  .wrap{max-width:760px;margin:0 auto;padding:32px 20px 64px}
-  header{text-align:center;padding:24px 0 8px}
-  .brand{font-weight:700;letter-spacing:.28em;font-size:22px}
-  .tag{color:var(--gold);letter-spacing:.18em;font-size:12px;font-weight:600;margin-top:6px}
-  h1{font-size:28px;margin:36px 0 4px}
-  .meta{color:var(--faint);font-size:14px;margin:0 0 20px}
+  body{
+    margin:0;min-height:100vh;background-color:var(--bg);color:var(--amber);
+    background-image:linear-gradient(rgba(255,176,0,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,176,0,.045) 1px,transparent 1px);
+    background-size:24px 24px;
+    font:15px/1.7 var(--mono);text-shadow:0 0 6px rgba(255,176,0,.25);
+  }
+  body::before,body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:10}
+  body::before{background:repeating-linear-gradient(to bottom,rgba(0,0,0,.22) 0 1px,transparent 1px 3px),radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.6) 100%)}
+  body::after{background:linear-gradient(to bottom,transparent,rgba(255,176,0,.035),transparent);height:14vh;animation:band 7s linear infinite}
+  @keyframes band{from{transform:translateY(-20vh)}to{transform:translateY(120vh)}}
+  @media (prefers-reduced-motion: reduce){body::after{display:none}}
+  .wrap{width:min(100% - 32px,860px);margin:0 auto;padding:28px 0 72px}
+  header,main{
+    position:relative;background:var(--panel);border:1px solid var(--dim);margin:18px 0;padding:24px 22px 22px;
+    clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px);
+  }
+  header{text-align:center}
+  .icon{width:96px;height:96px;display:block;margin:4px auto 14px;filter:drop-shadow(0 0 14px rgba(255,176,0,.3))}
+  .brand{font-size:26px;letter-spacing:.32em;color:var(--hot);text-shadow:0 0 10px rgba(255,176,0,.55)}
+  .tag{color:var(--dim);letter-spacing:.24em;font-size:12px;margin-top:6px}
   .lang{display:flex;gap:8px;margin:20px 0 0;justify-content:center}
-  .lang button{font:inherit;font-size:13px;letter-spacing:.12em;font-weight:600;color:var(--dim);background:transparent;border:1px solid var(--border);border-radius:6px;padding:8px 16px;cursor:pointer}
-  .lang button[aria-pressed="true"]{color:var(--gold);border-color:var(--gold)}
-  h2{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:36px 0 10px;padding-bottom:8px;border-bottom:1px solid var(--border)}
-  h2 span{color:var(--faint);margin-right:10px}
-  p,li{color:var(--dim)} strong{color:var(--text)}
-  ul{padding-left:20px} li{margin:6px 0}
-  .box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin:16px 0}
-  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:15px}
-  td{border-top:1px solid var(--border);padding:10px 8px;vertical-align:top;color:var(--dim)}
-  td:first-child{width:34%;color:var(--gold);font-weight:600;letter-spacing:.04em}
+  .lang button{
+    font:inherit;font-size:12px;letter-spacing:.2em;color:var(--amber);background:transparent;border:1px solid var(--dim);
+    padding:8px 16px;cursor:pointer;clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);
+  }
+  .lang button[aria-pressed="true"]{color:var(--hot);border-color:var(--amber);background:rgba(255,176,0,.14)}
+  h1{font-size:24px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--hot);margin:4px 0 4px}
+  h1::before{content:"> ";color:var(--dim)}
+  .meta{color:var(--dim);font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 20px}
+  h2{font-size:13px;font-weight:400;letter-spacing:.24em;text-transform:uppercase;color:var(--amber);margin:34px 0 10px;padding-bottom:8px;
+     background:linear-gradient(var(--muted),var(--muted)) left bottom/100% 1px no-repeat,repeating-linear-gradient(90deg,var(--muted) 0 1px,transparent 1px 16px) left bottom/100% 4px no-repeat}
+  h2 span{color:var(--dim);margin-right:10px}
+  h2 span::after{content:" /"}
+  p,li{color:var(--amber)} strong{color:var(--bright);font-weight:400}
+  code{color:var(--bright);font-family:inherit}
+  ul{padding-left:0;list-style:none} li{margin:6px 0;padding-left:20px;position:relative}
+  li::before{content:">";position:absolute;left:0;color:var(--dim)}
+  .box{background:var(--faint);border:1px solid var(--amber);padding:16px 18px;margin:16px 0;
+       clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px}
+  td{border-top:1px dashed var(--muted);padding:10px 8px;vertical-align:top;color:var(--amber)}
+  td:first-child{width:34%;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;font-size:12px}
   tr:first-child td{border-top:0}
-  a{color:var(--gold)}
-  footer{margin-top:48px;text-align:center;color:var(--faint);font-size:12px;letter-spacing:.14em}
+  a{color:var(--bright)} a:hover{color:var(--hot)}
+  footer{margin-top:28px;text-align:center;color:var(--dim);font-size:11px;letter-spacing:.24em}
   [hidden]{display:none!important}
+  @media (max-width:520px){ td:first-child{width:40%} .brand{font-size:20px} }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
+    <img class="icon" src="../../assets/promptforge-icon.png" alt="PromptForge app icon" width="192" height="192">
     <div class="brand">PROMPTFORGE</div>
     <div class="tag">SAVE IT. FIND IT. CREATE.</div>
     <div class="lang" role="group" aria-label="Language">
@@ -53,7 +80,7 @@
   <!-- ===================== ENGLISH ===================== -->
   <main lang="en" id="en">
     <h1>Privacy Policy</h1>
-    <p class="meta">Last updated · 4 October 2026 · Policy version 1</p>
+    <p class="meta">Last updated · 6 October 2026 · Policy version 1</p>
 
     <h2><span>01</span>Developer</h2>
     <p>PROMPTFORGE is an Android app made by <strong>MP CREATIVE FORGE</strong> (package <code>com.mpcreativeforge.promptforge</code>).<br>
@@ -77,7 +104,7 @@
     <ul>
       <li>Prompts you save: title, prompt text, category, model name, tags and private notes.</li>
       <li>The version history of each prompt, and which prompts are marked as favorites.</li>
-      <li>Your settings: theme, language, default category and default model, and whether you accepted this policy.</li>
+      <li>Your settings: CRT screen effect on/off, language, default category and default model, and whether you accepted this policy.</li>
     </ul>
     <p>The app does not collect your name, email address, location, contacts, photos, files, device identifiers or advertising ID.</p>
 
@@ -127,7 +154,7 @@
   <!-- ===================== ČESKY ===================== -->
   <main lang="cs" id="cs" hidden>
     <h1>Zásady ochrany soukromí</h1>
-    <p class="meta">Poslední aktualizace · 4. října 2026 · Verze zásad 1</p>
+    <p class="meta">Poslední aktualizace · 6. října 2026 · Verze zásad 1</p>
 
     <h2><span>01</span>Vývojář</h2>
     <p>PROMPTFORGE je aplikace pro Android od <strong>MP CREATIVE FORGE</strong> (balíček <code>com.mpcreativeforge.promptforge</code>).<br>
@@ -151,7 +178,7 @@
     <ul>
       <li>Prompty, které uložíte: název, text promptu, kategorie, název modelu, štítky a soukromé poznámky.</li>
       <li>Historie verzí každého promptu a označení oblíbených promptů.</li>
-      <li>Vaše nastavení: motiv, jazyk, výchozí kategorie a výchozí model a informace, že jste tyto zásady přijali.</li>
+      <li>Vaše nastavení: zapnutí efektu CRT obrazovky, jazyk, výchozí kategorie a výchozí model a informace, že jste tyto zásady přijali.</li>
     </ul>
     <p>Aplikace neshromažďuje jméno, e-mail, polohu, kontakty, fotografie, soubory, identifikátory zařízení ani reklamní ID.</p>
 
