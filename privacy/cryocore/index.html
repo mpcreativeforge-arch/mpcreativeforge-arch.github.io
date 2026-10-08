@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Privacy Policy for CRYOCORE, the offline cyber-cryo puzzle game by MP Creative Forge.">
+<meta name="theme-color" content="#050403">
+<title>CRYOCORE — Privacy Policy | MP Creative Forge</title>
+<style>
+:root {
+  --bg: #050403;
+  --panel: #0b0805;
+  --amber: #ffb000;
+  --amber-bright: #ffd37a;
+  --amber-hot: #ffe9b8;
+  --amber-dim: #b07a12;
+  --amber-muted: #6e4c0e;
+  --amber-faint: rgba(255, 176, 0, .08);
+  --mono: "Share Tech Mono", "JetBrains Mono", "Fira Mono", "DejaVu Sans Mono", Menlo, Consolas, "Courier New", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--bg);
+  /* faint technical grid */
+  background-image:
+    linear-gradient(rgba(255,176,0,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,176,0,.045) 1px, transparent 1px);
+  background-size: 24px 24px;
+  color: var(--amber);
+  font-family: var(--mono);
+  font-size: 15px;
+  line-height: 1.7;
+  text-shadow: 0 0 6px rgba(255, 176, 0, .25);
+}
+
+/* CRT overlay: scanlines + vignette + slow refresh band */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+body::before {
+  background:
+    repeating-linear-gradient(to bottom, rgba(0,0,0,.22) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.6) 100%);
+}
+body::after {
+  background: linear-gradient(to bottom, transparent, rgba(255,176,0,.035), transparent);
+  height: 14vh;
+  animation: band 7s linear infinite;
+}
+@keyframes band {
+  from { transform: translateY(-20vh); }
+  to   { transform: translateY(120vh); }
+}
+@media (prefers-reduced-motion: reduce) {
+  body::after { display: none; }
+}
+
+a { color: var(--amber-bright); }
+a:hover { color: var(--amber-hot); }
+
+.page {
+  width: min(100% - 32px, 860px);
+  margin: 0 auto;
+  padding: 28px 0 72px;
+}
+
+/* chamfered HUD panel */
+.panel {
+  position: relative;
+  margin: 18px 0;
+  padding: 22px 22px 20px;
+  background: var(--panel);
+  border: 1px solid var(--amber-dim);
+  clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+}
+.panel::before,
+.panel::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 1px;
+  background: var(--amber-dim);
+}
+.panel::before { top: 6px; left: -3px; transform: rotate(-45deg); }
+.panel::after { bottom: 6px; right: -3px; transform: rotate(-45deg); }
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--amber-dim);
+  text-transform: uppercase;
+}
+.topbar .bars { letter-spacing: 1px; color: var(--amber-muted); }
+
+.lang {
+  display: flex;
+  gap: 6px;
+}
+.lang button {
+  font: inherit;
+  font-size: 12px;
+  letter-spacing: 2px;
+  padding: 6px 12px;
+  color: var(--amber);
+  background: transparent;
+  border: 1px solid var(--amber-dim);
+  cursor: pointer;
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+}
+.lang button[aria-pressed="true"] {
+  background: rgba(255,176,0,.16);
+  color: var(--amber-hot);
+  border-color: var(--amber);
+}
+
+header.panel { text-align: center; padding: 30px 22px 26px; }
+.brand { font-size: 12px; letter-spacing: 5px; color: var(--amber-dim); }
+h1 {
+  margin: 14px 0 2px;
+  font-size: clamp(30px, 8vw, 54px);
+  letter-spacing: 6px;
+  line-height: 1.1;
+  color: var(--amber-bright);
+  text-shadow: 0 0 14px rgba(255,176,0,.6);
+}
+.subtitle { font-size: 12px; letter-spacing: 5px; color: var(--amber-dim); text-transform: uppercase; }
+.doc-title { margin-top: 18px; font-size: 18px; letter-spacing: 3px; text-transform: uppercase; color: var(--amber); }
+.updated { margin-top: 6px; font-size: 12px; color: var(--amber-dim); letter-spacing: 1px; }
+
+.status {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px 22px;
+  margin-top: 18px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--amber-dim);
+}
+.status b { color: var(--amber); font-weight: normal; }
+.status b::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin: 0 6px 1px 0;
+  background: var(--amber);
+  box-shadow: 0 0 6px var(--amber);
+}
+
+.hero { border-color: var(--amber); text-align: center; }
+.hero p { margin: 0; color: var(--amber-hot); font-size: 17px; }
+.hero small { display: block; margin-top: 8px; color: var(--amber); font-size: 13px; }
+
+h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0 0 10px;
+  font-size: 15px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--amber-bright);
+  font-weight: normal;
+}
+h2 .num { color: var(--amber-dim); font-size: 12px; }
+h2::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: repeating-linear-gradient(90deg, var(--amber-muted) 0 12px, transparent 12px 16px);
+  transform: translateY(-4px);
+}
+
+p { margin: 0 0 10px; }
+ul { margin: 6px 0 10px; padding: 0; list-style: none; }
+li { position: relative; padding-left: 22px; margin: 4px 0; }
+li::before { content: "▸"; position: absolute; left: 0; color: var(--amber-dim); }
+
+.kv { display: grid; grid-template-columns: max-content 1fr; gap: 4px 18px; }
+.kv dt { color: var(--amber-dim); letter-spacing: 1px; }
+.kv dd { margin: 0; color: var(--amber-bright); }
+
+footer {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--amber-muted);
+}
+footer a { color: var(--amber-dim); text-decoration: none; }
+.publisher { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 14px; text-align: left; }
+.publisher img { width: 52px; height: auto; filter: drop-shadow(0 0 6px rgba(255,176,0,.3)); }
+.publisher span { display: block; }
+.publisher .pl { font-size: 10px; letter-spacing: 4px; color: var(--amber-dim); }
+.publisher .pn { color: var(--amber); letter-spacing: 3px; }
+
+.home-link { color: var(--amber-dim); text-decoration: none; }
+.home-link:hover { color: var(--amber-hot); }
+
+.home-button {
+  display: block;
+  margin: 26px auto 0;
+  padding: 14px 22px;
+  max-width: 420px;
+  text-align: center;
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-decoration: none;
+  color: var(--amber-hot);
+  background: rgba(255,176,0,.16);
+  border: 1px solid var(--amber);
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+.home-button:hover { background: rgba(255,176,0,.3); color: var(--amber-hot); }
+
+[hidden] { display: none !important; }
+
+@media (max-width: 520px) {
+  body { font-size: 14px; }
+  .panel { padding: 18px 16px 16px; }
+  .topbar .bars { display: none; }
+  .kv { grid-template-columns: 1fr; gap: 0 0; }
+  .kv dd { margin-bottom: 8px; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+
+  <div class="topbar">
+    <a class="home-link" href="https://mpcreativeforge-arch.github.io/">◂ MP Creative Forge</a>
+    <span class="bars">▮▮▮▯▮▮▯▯▮▮▮▮▯▮</span>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-set-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-set-lang="cs" aria-pressed="false">CZ</button>
+    </div>
+  </div>
+
+  <!-- ============================ ENGLISH ============================ -->
+  <article lang="en" data-lang="en">
+    <header class="panel">
+      <div class="brand">MP CREATIVE FORGE</div>
+      <h1>CRYOCORE</h1>
+      <div class="subtitle">Cyber-cryo puzzle game</div>
+      <div class="doc-title">Privacy Policy</div>
+      <div class="updated">Last updated · 8 October 2026</div>
+      <div class="status">
+        <span>DATA <b>LOCAL</b></span>
+        <span>NETWORK <b>NONE</b></span>
+        <span>TRACKING <b>NONE</b></span>
+      </div>
+    </header>
+
+    <section class="panel hero">
+      <p>Your progress stays on your device.</p>
+      <small>CRYOCORE works fully offline. It does not collect, send, sell or share any personal data.</small>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">01</span>Developer</h2>
+      <dl class="kv">
+        <dt>App</dt><dd>CRYOCORE (Android game)</dd>
+        <dt>Package</dt><dd>cz.microvision.cryocore</dd>
+        <dt>Developer</dt><dd>MP Creative Forge</dd>
+        <dt>Publisher</dt><dd>MICROVISION s.r.o.</dd>
+        <dt>Contact</dt><dd><a href="mailto:mpcreativeforge@gmail.com">mpcreativeforge@gmail.com</a></dd>
+      </dl>
+      <p style="margin-top:12px">This Privacy Policy explains what information CRYOCORE stores, where it is stored and what is never collected.</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">02</span>The short version</h2>
+      <ul>
+        <li>CRYOCORE is an offline puzzle game. The game itself does not connect to the internet, uses no servers and sends no data anywhere.</li>
+        <li>No account, sign-in or registration is required.</li>
+        <li>No personal data is collected by MP Creative Forge or MICROVISION s.r.o.</li>
+        <li>No advertising, analytics or tracking tools are included.</li>
+        <li>The game is unlocked by a single one-time purchase through Google Play. There are no subscriptions.</li>
+        <li>Your settings, progress and records are stored only on your device.</li>
+        <li>You can delete all game data at any time.</li>
+      </ul>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">03</span>Information stored on your device</h2>
+      <p>To provide its features, CRYOCORE saves the following information locally, inside the app's private storage on your device:</p>
+      <ul>
+        <li><b>Settings:</b> sound, vibration, language, CRT effect and theme.</li>
+        <li><b>First-launch flag:</b> a small file that remembers the game has been started before, so the intro can be shortened.</li>
+        <li><b>Game progress:</b> your current level and score, so you can continue where you left off.</li>
+        <li><b>Records and statistics:</b> best score, best level, total moves, bosses defeated, unlocked achievement cards and the dates they were earned.</li>
+      </ul>
+      <p>This information never leaves your device through CRYOCORE and is not accessible to MP Creative Forge.</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">04</span>Information we do not collect</h2>
+      <ul>
+        <li>No name, email address, phone number or other contact details.</li>
+        <li>No location data.</li>
+        <li>No contacts, photos, files, camera or microphone access.</li>
+        <li>No device identifiers or advertising IDs.</li>
+        <li>No usage analytics or crash reports sent to us.</li>
+      </ul>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">05</span>Permissions</h2>
+      <p>CRYOCORE does not request camera, microphone, location, contacts or storage permissions. The only device feature it may use is:</p>
+      <ul>
+        <li><b>Vibration:</b> used for haptic feedback during play. You can turn it off in Settings.</li>
+      </ul>
+      <p>The game itself does not send any data over the network.</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">06</span>Purchase through Google Play</h2>
+      <p>CRYOCORE is offered as a single one-time purchase through Google Play. There are no subscriptions. The payment is processed entirely by Google Play under <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>. MP Creative Forge and MICROVISION s.r.o. receive no payment or card details.</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">07</span>Device backup</h2>
+      <p>If you have Android device backup turned on, Android may include CRYOCORE's local data (settings, progress and records) in your personal device backup, so it can be restored on a new phone. This backup is managed by Android and Google under your Google account settings, not by MP Creative Forge. You can control it in your device's backup settings.</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">08</span>Data sharing and selling</h2>
+      <p>CRYOCORE does not sell, rent, share or transfer any data to third parties. Because no personal data is collected, no data is shared with advertisers, analytics providers or other companies.</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">09</span>Deleting your data</h2>
+      <ul>
+        <li>Clearing the app's data (storage) in Android settings resets your settings, progress and records.</li>
+        <li>Uninstalling the app removes all CRYOCORE data from your device.</li>
+      </ul>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">10</span>Your rights (GDPR)</h2>
+      <p>MP Creative Forge does not process your personal data, so there is nothing for us to access, correct or delete on our side. All game data is under your control on your device. If you have any questions about privacy or about your rights under the GDPR, contact us at <a href="mailto:mpcreativeforge@gmail.com">mpcreativeforge@gmail.com</a>.</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">11</span>Children</h2>
+      <p>CRYOCORE is suitable for all ages. It does not collect personal information from anyone, including children under 13 (or the applicable age in your country).</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">12</span>Changes to this policy</h2>
+      <p>If this policy changes, for example when new features are added, the updated version will be published on this page with a new "Last updated" date. This policy is also accessible from inside the game, under <b>Settings → PRIVACY POLICY</b>.</p>
+    </section>
+
+    <a class="home-button" href="https://mpcreativeforge-arch.github.io/">◂ MP CREATIVE FORGE · HOME</a>
+  </article>
+
+  <!-- ============================ ČESKY ============================ -->
+  <article lang="cs" data-lang="cs" hidden>
+    <header class="panel">
+      <div class="brand">MP CREATIVE FORGE</div>
+      <h1>CRYOCORE</h1>
+      <div class="subtitle">Kyber-kryo logická hra</div>
+      <div class="doc-title">Zásady ochrany soukromí</div>
+      <div class="updated">Poslední aktualizace · 8. října 2026</div>
+      <div class="status">
+        <span>DATA <b>LOKÁLNÍ</b></span>
+        <span>SÍŤ <b>ŽÁDNÁ</b></span>
+        <span>SLEDOVÁNÍ <b>ŽÁDNÉ</b></span>
+      </div>
+    </header>
+
+    <section class="panel hero">
+      <p>Váš postup zůstává ve vašem zařízení.</p>
+      <small>CRYOCORE funguje zcela offline. Neshromažďuje, neodesílá, neprodává ani nesdílí žádné osobní údaje.</small>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">01</span>Vývojář</h2>
+      <dl class="kv">
+        <dt>Aplikace</dt><dd>CRYOCORE (hra pro Android)</dd>
+        <dt>Balíček</dt><dd>cz.microvision.cryocore</dd>
+        <dt>Vývojář</dt><dd>MP Creative Forge</dd>
+        <dt>Vydavatel</dt><dd>MICROVISION s.r.o.</dd>
+        <dt>Kontakt</dt><dd><a href="mailto:mpcreativeforge@gmail.com">mpcreativeforge@gmail.com</a></dd>
+      </dl>
+      <p style="margin-top:12px">Tyto zásady vysvětlují, jaké informace CRYOCORE ukládá, kde jsou uloženy a co se nikdy neshromažďuje.</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">02</span>Stručně</h2>
+      <ul>
+        <li>CRYOCORE je offline logická hra. Samotná hra se nepřipojuje k internetu, nepoužívá žádné servery a nikam neodesílá žádná data.</li>
+        <li>Nevyžaduje žádný účet, přihlášení ani registraci.</li>
+        <li>MP Creative Forge ani MICROVISION s.r.o. neshromažďují žádné osobní údaje.</li>
+        <li>Hra neobsahuje reklamy, analytiku ani sledovací nástroje.</li>
+        <li>Hra se odemyká jediným jednorázovým nákupem přes Google Play. Žádná předplatná.</li>
+        <li>Nastavení, postup a rekordy se ukládají pouze ve vašem zařízení.</li>
+        <li>Všechna herní data můžete kdykoli smazat.</li>
+      </ul>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">03</span>Informace uložené ve vašem zařízení</h2>
+      <p>Pro své funkce CRYOCORE ukládá do soukromého úložiště aplikace ve vašem zařízení tyto informace:</p>
+      <ul>
+        <li><b>Nastavení:</b> zvuk, vibrace, jazyk, CRT efekt a motiv.</li>
+        <li><b>Příznak prvního spuštění:</b> malý soubor, který si pamatuje, že hra už byla spuštěna, aby se mohlo zkrátit úvodní intro.</li>
+        <li><b>Herní postup:</b> aktuální level a skóre, abyste mohli pokračovat tam, kde jste skončili.</li>
+        <li><b>Rekordy a statistiky:</b> nejlepší skóre, nejvyšší level, celkový počet tahů, poražení bossové, získané karty úspěchů a data jejich získání.</li>
+      </ul>
+      <p>Tyto informace hra CRYOCORE nikam neodesílá a MP Creative Forge k nim nemá přístup.</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">04</span>Co neshromažďujeme</h2>
+      <ul>
+        <li>Žádné jméno, e‑mail, telefonní číslo ani jiné kontaktní údaje.</li>
+        <li>Žádné údaje o poloze.</li>
+        <li>Žádný přístup ke kontaktům, fotkám, souborům, fotoaparátu ani mikrofonu.</li>
+        <li>Žádné identifikátory zařízení ani reklamní ID.</li>
+        <li>Žádnou analytiku používání ani hlášení o pádech.</li>
+      </ul>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">05</span>Oprávnění</h2>
+      <p>CRYOCORE nežádá o přístup k fotoaparátu, mikrofonu, poloze, kontaktům ani úložišti. Jedinou funkcí zařízení, kterou může používat, je:</p>
+      <ul>
+        <li><b>Vibrace:</b> slouží pro hmatovou odezvu během hry. V Nastavení ji lze vypnout.</li>
+      </ul>
+      <p>Samotná hra neodesílá po síti žádná data.</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">06</span>Nákup přes Google Play</h2>
+      <p>CRYOCORE se prodává jako jediný jednorázový nákup přes Google Play. Žádná předplatná. Platbu zpracovává výhradně Google Play podle <a href="https://policies.google.com/privacy?hl=cs" target="_blank" rel="noopener">zásad ochrany soukromí společnosti Google</a>. MP Creative Forge ani MICROVISION s.r.o. nedostávají žádné platební údaje ani údaje o kartě.</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">07</span>Záloha zařízení</h2>
+      <p>Pokud máte zapnutou zálohu zařízení Android, systém může data hry CRYOCORE (nastavení, postup a rekordy) zahrnout do vaší osobní zálohy, aby šla obnovit v novém telefonu. Tuto zálohu spravuje Android a Google podle nastavení vašeho účtu Google, nikoli MP Creative Forge. Ovládáte ji v nastavení zálohování svého zařízení.</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">08</span>Sdílení a prodej dat</h2>
+      <p>CRYOCORE neprodává, nepronajímá, nesdílí ani nepředává žádná data třetím stranám. Protože se neshromažďují žádné osobní údaje, nic se nesdílí s inzerenty, analytickými službami ani jinými společnostmi.</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">09</span>Smazání dat</h2>
+      <ul>
+        <li>Vymazáním dat (úložiště) aplikace v nastavení Androidu se vynuluje nastavení, postup i rekordy.</li>
+        <li>Odinstalováním aplikace se odstraní všechna data CRYOCORE z vašeho zařízení.</li>
+      </ul>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">10</span>Vaše práva (GDPR)</h2>
+      <p>MP Creative Forge nezpracovává vaše osobní údaje, takže u nás není co zpřístupnit, opravit ani smazat. Všechna herní data máte pod kontrolou ve svém zařízení. S dotazy k ochraně soukromí nebo k vašim právům podle GDPR nás kontaktujte na <a href="mailto:mpcreativeforge@gmail.com">mpcreativeforge@gmail.com</a>.</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">11</span>Děti</h2>
+      <p>CRYOCORE je vhodná pro všechny věkové kategorie. Neshromažďuje osobní údaje od nikoho, ani od dětí mladších 13 let (nebo věku stanoveného ve vaší zemi).</p>
+    </section>
+
+    <section class="panel">
+      <h2><span class="num">12</span>Změny těchto zásad</h2>
+      <p>Pokud se zásady změní, například s novými funkcemi, aktualizovaná verze bude zveřejněna na této stránce s novým datem poslední aktualizace. Tyto zásady najdete také přímo ve hře v <b>Nastavení → OCHRANA SOUKROMÍ</b>.</p>
+    </section>
+
+    <a class="home-button" href="https://mpcreativeforge-arch.github.io/">◂ MP CREATIVE FORGE · HLAVNÍ STRÁNKA</a>
+  </article>
+
+  <footer>
+    <div class="publisher">
+      <img src="../../assets/microvision-logo.png" alt="MICROVISION s.r.o. logo" width="260" height="263">
+      <div>
+        <span class="pl" data-pub-label>PUBLISHER</span>
+        <span class="pn">MICROVISION S.R.O. COMPANY</span>
+      </div>
+    </div>
+    © 2026 MP CREATIVE FORGE ·
+    <a href="https://mpcreativeforge-arch.github.io/">MPCREATIVEFORGE-ARCH.GITHUB.IO</a>
+  </footer>
+</main>
+
+<script>
+(function () {
+  var docs = document.querySelectorAll("article[data-lang]");
+  var buttons = document.querySelectorAll("[data-set-lang]");
+
+  function show(lang) {
+    if (lang !== "cs") lang = "en";
+    docs.forEach(function (a) { a.hidden = a.getAttribute("data-lang") !== lang; });
+    buttons.forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-set-lang") === lang)); });
+    document.documentElement.lang = lang;
+    document.querySelector("[data-pub-label]").textContent = lang === "cs" ? "VYDAVATEL" : "PUBLISHER";
+    document.title = lang === "cs"
+      ? "CRYOCORE — Zásady ochrany soukromí | MP Creative Forge"
+      : "CRYOCORE — Privacy Policy | MP Creative Forge";
+  }
+
+  function initial() {
+    var param = new URLSearchParams(location.search).get("lang");
+    if (param) return param.toLowerCase();
+    if (location.hash === "#cs" || location.hash === "#en") return location.hash.slice(1);
+    try {
+      var saved = localStorage.getItem("cryocore-privacy-lang");
+      if (saved) return saved;
+    } catch (e) {}
+    return (navigator.language || "en").toLowerCase().indexOf("cs") === 0 ? "cs" : "en";
+  }
+
+  buttons.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var lang = b.getAttribute("data-set-lang");
+      show(lang);
+      try { localStorage.setItem("cryocore-privacy-lang", lang); } catch (e) {}
+    });
+  });
+
+  show(initial());
+})();
+</script>
+</body>
+</html>
