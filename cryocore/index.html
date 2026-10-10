@@ -219,6 +219,9 @@ h2::after {
 .ice h2::after { background: repeating-linear-gradient(90deg, var(--ice-dim) 0 12px, transparent 12px 16px); }
 p { margin: 0 0 10px; }
 .story p { max-width: 68ch; }
+.ai-panel { margin: 18px 0 0; }
+.ai-panel img { display: block; width: 100%; height: auto; aspect-ratio: 816 / 126; border: 1px solid var(--ice-dim); border-radius: 6px; box-shadow: 0 0 24px rgba(127,227,255,.12); }
+.ai-panel figcaption { margin-top: 8px; font-size: 11px; letter-spacing: 2px; color: var(--ice); text-transform: uppercase; }
 .story .ai {
   margin-top: 14px;
   padding: 10px 14px;
@@ -364,7 +367,10 @@ footer a { color: var(--amber-dim); text-decoration: none; }
     <h2><span class="num">01</span><span data-cs="Příběh">Story</span></h2>
     <p data-cs="Hluboko pod ledem běží kryo jádro, které drží celou stanici při životě. Jeho řídicí AI se poškodila a začala ho zaplavovat vlastním kódem. Když se plocha zaplní, jádro zamrzne navždy.">Deep under the ice runs the cryo core that keeps the whole station alive. Its control AI got damaged and started flooding it with its own code. If the board fills up, the core freezes for good.</p>
     <p data-cs="Jsi operátor u posledního terminálu. Skládáš tři a více stejných symbolů, mažeš kód a ubíráš AI integritu. Ona ti to nebude ulehčovat: posílá bosse, pouští na plochu glitchové bytosti, spouští katastrofy a celou dobu tě komentuje.">You are the operator at the last terminal. Line up three or more matching symbols, wipe the code and drain the AI's integrity. It will not make it easy: it sends bosses, lets glitchy creatures loose on the board, triggers disasters and comments on everything you do.</p>
-    <div class="ai"><span data-cs="AI // POŠKOZENÉ JÁDRO">AI // DAMAGED KERNEL</span><span data-cs="Prorazil jsi jednu zeď. Postavila jsem jich tisíc.">You broke one wall. I built a thousand.</span></div>
+    <figure class="ai-panel">
+      <img src="../assets/cryocore/ai-panel.webp" alt="The AI panel in the game: a LED display showing faces and warnings while the AI talks" width="816" height="126" loading="lazy">
+      <figcaption data-cs="Panel AI s LED displejem: přes 300 hlášek a desítky obrázků podle toho, jak hraješ.">The AI panel and its LED display: over 300 lines and dozens of pictures, depending on how you play.</figcaption>
+    </figure>
   </section>
 
   <!-- SCREENSHOTS -->
