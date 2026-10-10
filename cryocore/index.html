@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="CRYOCORE, the offline cyber-cryo puzzle game for Android by MP Creative Forge. Break the frozen core across 99 levels, five bosses and a bestiary of glitchy creatures.">
+<meta name="description" content="CRYOCORE, the offline cyber-cryo puzzle game for Android by MP Creative Forge. Break the frozen core across 99 levels, seven bosses and a bestiary of glitchy creatures.">
 <meta name="theme-color" content="#050403">
 <title>CRYOCORE — Cyber-Cryo Puzzle Game | MP Creative Forge</title>
 <link rel="icon" type="image/png" href="../assets/favicon.png">
@@ -246,12 +246,12 @@ p { margin: 0 0 10px; }
 .feature span { display: block; margin-top: 4px; font-size: 14px; color: var(--amber); }
 
 /* bestiary */
-.cards { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.cards { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 10px; }
 .cards figure { margin: 0; text-align: center; }
 .cards img { display: block; width: 100%; height: auto; aspect-ratio: 5 / 7; object-fit: contain; }
 .cards figcaption { margin-top: 6px; font-size: 11px; letter-spacing: 1px; color: var(--amber-bright); line-height: 1.35; }
 .cards figcaption small { display: block; color: var(--amber-dim); font-size: 10px; letter-spacing: 2px; }
-.cards.small { grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 8px; margin-top: 18px; }
+.cards.small { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; margin-top: 18px; }
 .note { font-size: 13px; color: var(--amber-dim); }
 
 /* specs */
@@ -292,7 +292,7 @@ footer a { color: var(--amber-dim); text-decoration: none; }
 @media (max-width: 760px) {
   .hero { grid-template-columns: 1fr; padding: 26px 18px; }
   .phone { max-width: 240px; }
-  .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .cards { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .cards.small { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 @media (max-width: 560px) {
@@ -378,6 +378,31 @@ footer a { color: var(--amber-dim); text-decoration: none; }
     <h2><span class="num">02</span><span data-cs="Ze hry">In the game</span></h2>
     <div class="shots">
       <figure>
+        <img data-src-en="../assets/cryocore/shot-en-game.webp" data-src-cs="../assets/cryocore/shot-cs-game.webp"
+             src="../assets/cryocore/shot-en-game.webp" alt="Game board with creatures and pests" width="432" height="768" loading="lazy">
+        <figcaption data-cs="Bytosti na ploše">Creatures on the board</figcaption>
+      </figure>
+      <figure>
+        <img data-src-en="../assets/cryocore/shot-en-boss.webp" data-src-cs="../assets/cryocore/shot-cs-boss.webp"
+             src="../assets/cryocore/shot-en-boss.webp" alt="Boss fight against HYDRA.EXE" width="432" height="768" loading="lazy">
+        <figcaption data-cs="Souboj s bossem">Boss fight</figcaption>
+      </figure>
+      <figure>
+        <img data-src-en="../assets/cryocore/shot-en-bosscard.webp" data-src-cs="../assets/cryocore/shot-cs-bosscard.webp"
+             src="../assets/cryocore/shot-en-bosscard.webp" alt="Boss warning card for FLUX MAGNETAR" width="432" height="768" loading="lazy">
+        <figcaption data-cs="Detekován boss">Boss detected</figcaption>
+      </figure>
+      <figure>
+        <img data-src-en="../assets/cryocore/shot-en-levels.webp" data-src-cs="../assets/cryocore/shot-cs-levels.webp"
+             src="../assets/cryocore/shot-en-levels.webp" alt="Level select with five threat sectors" width="432" height="768" loading="lazy">
+        <figcaption data-cs="Pět sektorů ohrožení">Five threat sectors</figcaption>
+      </figure>
+      <figure>
+        <img data-src-en="../assets/cryocore/shot-en-bestiary.webp" data-src-cs="../assets/cryocore/shot-cs-bestiary.webp"
+             src="../assets/cryocore/shot-en-bestiary.webp" alt="Bestiary" width="432" height="768" loading="lazy">
+        <figcaption data-cs="Bestiář">Bestiary</figcaption>
+      </figure>
+      <figure>
         <img data-src-en="../assets/cryocore/l99-holo.webp" data-src-cs="../assets/cryocore/l99-holo.webp"
              src="../assets/cryocore/l99-holo.webp" alt="Level 99 hologram fight animation" width="432" height="768" loading="lazy">
         <figcaption data-cs="Level 99: hologram">Level 99: the hologram</figcaption>
@@ -392,11 +417,6 @@ footer a { color: var(--amber-dim); text-decoration: none; }
              src="../assets/cryocore/shot-en-badges.webp" alt="Badges" width="432" height="768" loading="lazy">
         <figcaption data-cs="44 odznaků">44 badges</figcaption>
       </figure>
-      <figure>
-        <img data-src-en="../assets/cryocore/shot-en-bestiary.webp" data-src-cs="../assets/cryocore/shot-cs-bestiary.webp"
-             src="../assets/cryocore/shot-en-bestiary.webp" alt="Bestiary" width="432" height="768" loading="lazy">
-        <figcaption data-cs="Bestiář">Bestiary</figcaption>
-      </figure>
     </div>
   </section>
 
@@ -404,12 +424,12 @@ footer a { color: var(--amber-dim); text-decoration: none; }
   <section class="panel">
     <h2><span class="num">03</span><span data-cs="Co tě čeká">What awaits you</span></h2>
     <div class="features">
-      <div class="feature"><b data-cs-html="<em>99</em> LEVELŮ + FINÁLE"><em>99</em> LEVELS + FINALE</b><span data-cs="Deset kapitol od Diagnostiky po Jádro AI. Každý level je o kousek těžší.">Ten chapters from Diagnostics to the AI Core. Every level is a little harder.</span></div>
-      <div class="feature"><b data-cs-html="<em>5</em> BOSSŮ"><em>5</em> BOSSES</b><span data-cs="Nexus Devil, Void Mantis, Cryo Wraith, Core Titan a nakonec mechanické oko AI OMNICORE.">Nexus Devil, Void Mantis, Cryo Wraith, Core Titan and finally the mechanical eye of AI OMNICORE.</span></div>
-      <div class="feature"><b data-cs-html="<em>20+</em> BYTOSTÍ"><em>20+</em> CREATURES</b><span data-cs="Goblin krade symboly, pavouk přede sítě, vlci loví ve smečce a obchodní dron prodává vybavení.">The goblin steals symbols, the spider spins webs, wolves hunt in packs and a trading drone sells gear.</span></div>
+      <div class="feature"><b data-cs-html="<em>99</em> LEVELŮ + FINÁLE"><em>99</em> LEVELS + FINALE</b><span data-cs="Pět sektorů ohrožení od Stabilního po Meltdown a deset kapitol od Diagnostiky po Jádro AI. Každý level je o kousek těžší.">Five threat sectors from Stable to Meltdown and ten chapters from Diagnostics to the AI Core. Every level is a little harder.</span></div>
+      <div class="feature"><b data-cs-html="<em>7</em> BOSSŮ"><em>7</em> BOSSES</b><span data-cs="Nexus Devil, Void Mantis, Flux Magnetar, Cryo Wraith, Hydra.exe, Core Titan a nakonec oko AI OMNICORE.">Nexus Devil, Void Mantis, Flux Magnetar, Cryo Wraith, Hydra.exe, Core Titan and finally the eye of AI OMNICORE.</span></div>
+      <div class="feature"><b data-cs-html="<em>25</em> BYTOSTÍ"><em>25</em> CREATURES</b><span data-cs="Goblin krade symboly, pavouk přede sítě, vlci loví ve smečce, blecha přilepí fragment a debug můra ti opraví zámky.">The goblin steals symbols, the spider spins webs, wolves hunt in packs, the flea pins fragments and the debug moth repairs your locks.</span></div>
       <div class="feature"><b data-cs-html="<em>7</em> DOVEDNOSTÍ"><em>7</em> SKILLS</b><span data-cs="SCAN, VEKTOR, TELEPORT, NOVA, EMP, SPEKTRUM a pulzní past na entity.">SCAN, VEKTOR, TELEPORT, NOVA, EMP, SPECTRUM and a pulse trap for creatures.</span></div>
       <div class="feature"><b data-cs="SPECIÁLNÍ KAMENY">SPECIAL STONES</b><span data-cs="Kyselina, izotop, reaktor, skokan, krystal a další. Shoda čtyř nebo pěti je vždy odměna.">Acid, isotope, reactor, jumper, crystal and more. A match of four or five always pays off.</span></div>
-      <div class="feature"><b data-cs="UDÁLOSTI A KATASTROFY">EVENTS AND DISASTERS</b><span data-cs="Orbitální úder pomůže, kódová bomba ne. Výpadek proudu zhasne plochu a kryo lavina ji zasype ledem.">An orbital strike helps, a code bomb does not. A power outage darkens the board and a cryo avalanche buries it in ice.</span></div>
+      <div class="feature"><b data-cs="UDÁLOSTI A KATASTROFY">EVENTS AND DISASTERS</b><span data-cs="Orbitální úder pomůže, kódová bomba ne. Výpadek proudu zhasne plochu a kryo lavina ji zasype ledem. O Halloweenu a Vánocích přilétá kyber čarodějnice a kyber Santa.">An orbital strike helps, a code bomb does not. A power outage darkens the board and a cryo avalanche buries it in ice. At Halloween and Christmas the cyber witch and cyber Santa drop by.</span></div>
       <div class="feature"><b data-cs="DENNÍ VÝZVA A NEKONEČNÁ HRA">DAILY CHALLENGE AND ENDLESS</b><span data-cs="Každý den nový level se sérií dnů. Po zničení AI se odemkne nekonečná hra ve vlnách.">A new level every day with a day streak. Beat the AI to unlock endless waves.</span></div>
       <div class="feature"><b data-cs="SBÍRKA A MOTIVY">COLLECTION AND THEMES</b><span data-cs="44 odznaků, 9 karet úspěchů, bestiář a pět motivů od Arktického po Molten Core.">44 badges, 9 achievement cards, a bestiary and five themes from Arctic to Molten Core.</span></div>
     </div>
@@ -417,23 +437,29 @@ footer a { color: var(--amber-dim); text-decoration: none; }
 
   <!-- BESTIARY -->
   <section class="panel ice">
-    <h2><span class="num">04</span><span data-cs="Bossové">Bosses</span></h2>
+    <h2><span class="num">04</span><span data-cs="Bestiář">Bestiary</span></h2>
     <div class="cards">
-      <figure><img src="../assets/cryocore/card-devil.webp" alt="" width="240" height="336" loading="lazy"><figcaption>NEXUS DEVIL<small data-cs="OD L10">FROM L10</small></figcaption></figure>
-      <figure><img src="../assets/cryocore/card-mantis.webp" alt="" width="240" height="336" loading="lazy"><figcaption>VOID MANTIS<small data-cs="OD L25">FROM L25</small></figcaption></figure>
-      <figure><img src="../assets/cryocore/card-wraith.webp" alt="" width="240" height="336" loading="lazy"><figcaption>CRYO WRAITH<small data-cs="OD L40">FROM L40</small></figcaption></figure>
-      <figure><img src="../assets/cryocore/card-titan.webp" alt="" width="240" height="336" loading="lazy"><figcaption>CORE TITAN<small data-cs="OD L60">FROM L60</small></figcaption></figure>
-      <figure><img src="../assets/cryocore/card-omnicore.webp" alt="" width="240" height="336" loading="lazy"><figcaption>AI OMNICORE<small data-cs="LEVEL 99">LEVEL 99</small></figcaption></figure>
+      <figure><img data-src-en="../assets/cryocore/card-devil-en.webp" data-src-cs="../assets/cryocore/card-devil-cs.webp" src="../assets/cryocore/card-devil-en.webp" alt="NEXUS DEVIL" width="240" height="336" loading="lazy"><figcaption><small data-cs="OD L10">FROM L10</small></figcaption></figure>
+      <figure><img data-src-en="../assets/cryocore/card-mantis-en.webp" data-src-cs="../assets/cryocore/card-mantis-cs.webp" src="../assets/cryocore/card-mantis-en.webp" alt="VOID MANTIS" width="240" height="336" loading="lazy"><figcaption><small data-cs="OD L20">FROM L20</small></figcaption></figure>
+      <figure><img data-src-en="../assets/cryocore/card-magnetar-en.webp" data-src-cs="../assets/cryocore/card-magnetar-cs.webp" src="../assets/cryocore/card-magnetar-en.webp" alt="FLUX MAGNETAR" width="240" height="336" loading="lazy"><figcaption><small data-cs="OD L30">FROM L30</small></figcaption></figure>
+      <figure><img data-src-en="../assets/cryocore/card-wraith-en.webp" data-src-cs="../assets/cryocore/card-wraith-cs.webp" src="../assets/cryocore/card-wraith-en.webp" alt="CRYO WRAITH" width="240" height="336" loading="lazy"><figcaption><small data-cs="OD L40">FROM L40</small></figcaption></figure>
+      <figure><img data-src-en="../assets/cryocore/card-hydra-en.webp" data-src-cs="../assets/cryocore/card-hydra-cs.webp" src="../assets/cryocore/card-hydra-en.webp" alt="HYDRA.EXE" width="240" height="336" loading="lazy"><figcaption><small data-cs="OD L50">FROM L50</small></figcaption></figure>
+      <figure><img data-src-en="../assets/cryocore/card-titan-en.webp" data-src-cs="../assets/cryocore/card-titan-cs.webp" src="../assets/cryocore/card-titan-en.webp" alt="CORE TITAN" width="240" height="336" loading="lazy"><figcaption><small data-cs="OD L60">FROM L60</small></figcaption></figure>
+      <figure><img data-src-en="../assets/cryocore/card-omnicore-en.webp" data-src-cs="../assets/cryocore/card-omnicore-cs.webp" src="../assets/cryocore/card-omnicore-en.webp" alt="AI OMNICORE" width="240" height="336" loading="lazy"><figcaption><small data-cs="LEVEL 99">LEVEL 99</small></figcaption></figure>
     </div>
     <div class="cards small">
-      <figure><img src="../assets/cryocore/card-goblin.webp" alt="" width="240" height="336" loading="lazy"><figcaption>AI GOBLIN</figcaption></figure>
-      <figure><img src="../assets/cryocore/card-rooster.webp" alt="" width="240" height="336" loading="lazy"><figcaption>AI ROOSTER</figcaption></figure>
-      <figure><img src="../assets/cryocore/card-fly.webp" alt="" width="240" height="336" loading="lazy"><figcaption>DIGI FLY</figcaption></figure>
-      <figure><img src="../assets/cryocore/card-spider.webp" alt="" width="240" height="336" loading="lazy"><figcaption data-cs="NANO PAVOUK">NANO SPIDER</figcaption></figure>
-      <figure><img src="../assets/cryocore/card-cat.webp" alt="" width="240" height="336" loading="lazy"><figcaption data-cs="KVANTOVÁ KOČKA">QUANTUM CAT</figcaption></figure>
-      <figure><img src="../assets/cryocore/card-jelly.webp" alt="" width="240" height="336" loading="lazy"><figcaption data-cs="PLAZMA MEDÚZA">PLASMA JELLY</figcaption></figure>
-      <figure><img src="../assets/cryocore/card-wolf.webp" alt="" width="240" height="336" loading="lazy"><figcaption data-cs="PIXELOVÍ VLCI">PIXEL WOLVES</figcaption></figure>
-      <figure><img src="../assets/cryocore/card-trader.webp" alt="" width="240" height="336" loading="lazy"><figcaption>BROKER-3</figcaption></figure>
+      <figure><img data-src-en="../assets/cryocore/card-goblin-en.webp" data-src-cs="../assets/cryocore/card-goblin-cs.webp" src="../assets/cryocore/card-goblin-en.webp" alt="AI Goblin" width="240" height="336" loading="lazy"></figure>
+      <figure><img data-src-en="../assets/cryocore/card-rooster-en.webp" data-src-cs="../assets/cryocore/card-rooster-cs.webp" src="../assets/cryocore/card-rooster-en.webp" alt="AI Rooster" width="240" height="336" loading="lazy"></figure>
+      <figure><img data-src-en="../assets/cryocore/card-fly-en.webp" data-src-cs="../assets/cryocore/card-fly-cs.webp" src="../assets/cryocore/card-fly-en.webp" alt="Byte Fly" width="240" height="336" loading="lazy"></figure>
+      <figure><img data-src-en="../assets/cryocore/card-flea-en.webp" data-src-cs="../assets/cryocore/card-flea-cs.webp" src="../assets/cryocore/card-flea-en.webp" alt="Pixel Flea" width="240" height="336" loading="lazy"></figure>
+      <figure><img data-src-en="../assets/cryocore/card-moth-en.webp" data-src-cs="../assets/cryocore/card-moth-cs.webp" src="../assets/cryocore/card-moth-en.webp" alt="Debug Moth" width="240" height="336" loading="lazy"></figure>
+      <figure><img data-src-en="../assets/cryocore/card-frog-en.webp" data-src-cs="../assets/cryocore/card-frog-cs.webp" src="../assets/cryocore/card-frog-en.webp" alt="Croakbot" width="240" height="336" loading="lazy"></figure>
+      <figure><img data-src-en="../assets/cryocore/card-spider-en.webp" data-src-cs="../assets/cryocore/card-spider-cs.webp" src="../assets/cryocore/card-spider-en.webp" alt="Nano Spider" width="240" height="336" loading="lazy"></figure>
+      <figure><img data-src-en="../assets/cryocore/card-cat-en.webp" data-src-cs="../assets/cryocore/card-cat-cs.webp" src="../assets/cryocore/card-cat-en.webp" alt="Quantum Cat" width="240" height="336" loading="lazy"></figure>
+      <figure><img data-src-en="../assets/cryocore/card-jelly-en.webp" data-src-cs="../assets/cryocore/card-jelly-cs.webp" src="../assets/cryocore/card-jelly-en.webp" alt="Plasma Jelly" width="240" height="336" loading="lazy"></figure>
+      <figure><img data-src-en="../assets/cryocore/card-wolf-en.webp" data-src-cs="../assets/cryocore/card-wolf-cs.webp" src="../assets/cryocore/card-wolf-en.webp" alt="Pixel Wolves" width="240" height="336" loading="lazy"></figure>
+      <figure><img data-src-en="../assets/cryocore/card-janitor-en.webp" data-src-cs="../assets/cryocore/card-janitor-cs.webp" src="../assets/cryocore/card-janitor-en.webp" alt="Sweep-E" width="240" height="336" loading="lazy"></figure>
+      <figure><img data-src-en="../assets/cryocore/card-trader-en.webp" data-src-cs="../assets/cryocore/card-trader-cs.webp" src="../assets/cryocore/card-trader-en.webp" alt="BROKER-3" width="240" height="336" loading="lazy"></figure>
     </div>
     <p class="note" style="margin-top:14px" data-cs="Každou bytost zapíšeš do bestiáře při prvním setkání. Zbytek objevíš sám.">Every creature goes into your bestiary the first time you meet it. The rest is yours to discover.</p>
   </section>
