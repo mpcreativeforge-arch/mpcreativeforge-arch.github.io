@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="CRYOCORE, the offline cyber-cryo puzzle game for Android by MP Creative Forge. Break the frozen core across 99 levels, five bosses and a bestiary of glitchy creatures.">
+<meta name="theme-color" content="#050403">
+<title>CRYOCORE — Cyber-Cryo Puzzle Game | MP Creative Forge</title>
+<link rel="icon" type="image/png" href="../assets/favicon.png">
+<style>
+@font-face {
+  font-family: "VT323";
+  src: url("../assets/fonts/vt323.woff") format("woff");
+  font-display: swap;
+}
+:root {
+  --bg: #050403;
+  --panel: #0b0805;
+  --amber: #ffb000;
+  --amber-bright: #ffd37a;
+  --amber-hot: #ffe9b8;
+  --amber-dim: #b07a12;
+  --amber-muted: #6e4c0e;
+  --ice: #7fe3ff;
+  --ice-bright: #d6f8ff;
+  --ice-dim: #2d8aa3;
+  --ice-deep: #06151b;
+  --mono: "Share Tech Mono", "JetBrains Mono", "Fira Mono", "DejaVu Sans Mono", Menlo, Consolas, "Courier New", monospace;
+  --vt: "VT323", var(--mono);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(rgba(255,176,0,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,176,0,.045) 1px, transparent 1px);
+  background-size: 24px 24px;
+  color: var(--amber);
+  font-family: var(--mono);
+  font-size: 15px;
+  line-height: 1.7;
+  text-shadow: 0 0 6px rgba(255,176,0,.25);
+}
+
+/* CRT overlay */
+body::before, body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+body::before {
+  background:
+    repeating-linear-gradient(to bottom, rgba(0,0,0,.22) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.6) 100%);
+}
+body::after {
+  height: 14vh;
+  background: linear-gradient(to bottom, transparent, rgba(127,227,255,.035), transparent);
+  animation: band 7s linear infinite;
+}
+@keyframes band { from { transform: translateY(-20vh); } to { transform: translateY(120vh); } }
+@keyframes pulse { 0%, 100% { box-shadow: 0 0 18px rgba(127,227,255,.25), inset 0 0 18px rgba(127,227,255,.08); } 50% { box-shadow: 0 0 34px rgba(127,227,255,.5), inset 0 0 26px rgba(127,227,255,.16); } }
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes frost { 0%, 100% { text-shadow: 0 0 12px rgba(127,227,255,.6), 0 0 32px rgba(127,227,255,.25); } 50% { text-shadow: 0 0 18px rgba(127,227,255,.85), 0 0 48px rgba(127,227,255,.4); } }
+@media (prefers-reduced-motion: reduce) {
+  body::after { display: none; }
+  .play, .logo, .cursor { animation: none !important; }
+}
+
+a { color: var(--amber-bright); }
+a:hover { color: var(--amber-hot); }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+
+.page {
+  width: min(100% - 32px, 980px);
+  margin: 0 auto;
+  padding-block: 22px 72px;
+}
+
+/* top bar */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--amber-muted);
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--amber-dim);
+  text-transform: uppercase;
+}
+.topbar .bars { letter-spacing: 1px; color: var(--amber-muted); }
+.home-link { color: var(--amber-dim); text-decoration: none; }
+.home-link:hover { color: var(--amber-hot); }
+.lang { display: flex; gap: 6px; }
+.lang button {
+  font: inherit;
+  font-size: 12px;
+  letter-spacing: 2px;
+  padding: 6px 12px;
+  color: var(--amber);
+  background: transparent;
+  border: 1px solid var(--amber-dim);
+  cursor: pointer;
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+}
+.lang button[aria-pressed="true"] { background: rgba(255,176,0,.16); color: var(--amber-hot); border-color: var(--amber); }
+
+/* chamfered panels */
+.panel {
+  position: relative;
+  margin: 18px 0;
+  padding: 24px 22px;
+  background: var(--panel);
+  border: 1px solid var(--amber-dim);
+  clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+}
+.panel.ice { border-color: var(--ice-dim); background: linear-gradient(180deg, var(--ice-deep), var(--panel)); }
+
+/* hero */
+.hero { display: grid; grid-template-columns: 1fr minmax(0, 300px); gap: 28px; align-items: center; padding: 34px 28px; }
+.hero > * { min-width: 0; }
+.brand { font-size: 12px; letter-spacing: 6px; color: var(--amber-dim); }
+.logo-row { display: flex; align-items: center; gap: 18px; margin-top: 14px; }
+.logo-row img { width: 84px; height: 84px; border: 1px solid var(--ice-dim); filter: drop-shadow(0 0 10px rgba(127,227,255,.35)); }
+.logo {
+  margin: 0;
+  font-family: var(--vt);
+  font-weight: normal;
+  font-size: clamp(52px, 11vw, 96px);
+  letter-spacing: 8px;
+  line-height: .9;
+  color: var(--ice-bright);
+  animation: frost 4s ease-in-out infinite;
+}
+.subtitle { margin-top: 8px; font-size: 12px; letter-spacing: 5px; color: var(--ice); text-shadow: 0 0 6px rgba(127,227,255,.35); text-transform: uppercase; }
+.pitch { margin: 20px 0 0; font-size: 16px; color: var(--amber-hot); max-width: 52ch; text-wrap: pretty; }
+.pitch .cursor { color: var(--ice); animation: blink 1s steps(1) infinite; }
+
+/* play button: becomes a real link when the Google Play listing is live */
+.play {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 26px;
+  padding: 14px 26px 14px 18px;
+  color: var(--ice-bright);
+  background: rgba(127,227,255,.1);
+  border: 1px solid var(--ice);
+  text-decoration: none;
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+  animation: pulse 2.6s ease-in-out infinite;
+  text-shadow: 0 0 8px rgba(127,227,255,.5);
+  cursor: default;
+}
+a.play { cursor: pointer; }
+a.play:hover { background: rgba(127,227,255,.2); color: #fff; }
+.play svg { width: 34px; height: 37px; flex: none; filter: drop-shadow(0 0 6px rgba(127,227,255,.35)); }
+.play .pl-top { display: block; font-family: var(--vt); font-size: 30px; letter-spacing: 4px; line-height: 1; }
+.play .pl-sub { display: block; margin-top: 4px; font-size: 11px; letter-spacing: 3px; color: var(--ice); }
+.play .pl-soon { color: var(--amber); }
+.facts-line { margin-top: 16px; font-size: 11px; letter-spacing: 2px; color: var(--amber-dim); display: flex; flex-wrap: wrap; gap: 4px 18px; }
+.facts-line b { color: var(--amber); font-weight: normal; }
+.facts-line b::before {
+  content: "";
+  display: inline-block;
+  width: 6px; height: 6px;
+  margin: 0 6px 1px 0;
+  background: var(--amber);
+  box-shadow: 0 0 6px var(--amber);
+}
+
+/* phone frame */
+.phone {
+  width: 100%;
+  max-width: 300px;
+  justify-self: center;
+  padding: 10px;
+  background: #020607;
+  border: 1px solid var(--ice-dim);
+  border-radius: 22px;
+  box-shadow: 0 0 40px rgba(127,227,255,.15);
+}
+.phone img { display: block; width: 100%; aspect-ratio: 9 / 16; border-radius: 14px; }
+
+/* section headings */
+h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0 0 14px;
+  font-size: 15px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--amber-bright);
+  font-weight: normal;
+  text-wrap: balance;
+}
+h2 .num { color: var(--amber-dim); font-size: 12px; }
+h2::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: repeating-linear-gradient(90deg, var(--amber-muted) 0 12px, transparent 12px 16px);
+  transform: translateY(-4px);
+}
+.ice h2 { color: var(--ice-bright); text-shadow: 0 0 6px rgba(127,227,255,.35); }
+.ice h2 .num { color: var(--ice-dim); }
+.ice h2::after { background: repeating-linear-gradient(90deg, var(--ice-dim) 0 12px, transparent 12px 16px); }
+p { margin: 0 0 10px; }
+.story p { max-width: 68ch; }
+.story .ai {
+  margin-top: 14px;
+  padding: 10px 14px;
+  border-left: 2px solid #ff5a4f;
+  color: #ff9c90;
+  text-shadow: 0 0 6px rgba(255,90,79,.35);
+  font-size: 14px;
+}
+.story .ai span { display: block; font-size: 10px; letter-spacing: 3px; color: #c4483e; }
+
+/* screenshots */
+.shots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.shots figure { margin: 0; }
+.shots img { display: block; width: 100%; aspect-ratio: 9 / 16; border: 1px solid var(--ice-dim); border-radius: 12px; }
+.shots figcaption { margin-top: 8px; font-size: 11px; letter-spacing: 2px; color: var(--ice); text-align: center; text-transform: uppercase; }
+
+/* features */
+.features { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 28px; }
+.feature { padding: 12px 0; border-bottom: 1px dashed var(--amber-muted); min-width: 0; }
+.feature b { display: block; font-family: var(--vt); font-weight: normal; font-size: 24px; letter-spacing: 2px; color: var(--amber-bright); line-height: 1.1; }
+.feature b em { font-style: normal; color: var(--ice); text-shadow: 0 0 8px rgba(127,227,255,.4); }
+.feature span { display: block; margin-top: 4px; font-size: 14px; color: var(--amber); }
+
+/* bestiary */
+.cards { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.cards figure { margin: 0; text-align: center; }
+.cards img { display: block; width: 100%; aspect-ratio: 5 / 7; }
+.cards figcaption { margin-top: 6px; font-size: 11px; letter-spacing: 1px; color: var(--amber-bright); line-height: 1.35; }
+.cards figcaption small { display: block; color: var(--amber-dim); font-size: 10px; letter-spacing: 2px; }
+.cards.small { grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 8px; margin-top: 18px; }
+.note { font-size: 13px; color: var(--amber-dim); }
+
+/* specs */
+.kv { display: grid; grid-template-columns: max-content 1fr; gap: 6px 22px; margin: 0; }
+.kv dt { color: var(--amber-dim); letter-spacing: 1px; }
+.kv dd { margin: 0; color: var(--amber-bright); min-width: 0; }
+
+/* buttons */
+.buttons { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.button {
+  display: inline-block;
+  padding: 10px 18px;
+  border: 1px solid var(--amber-dim);
+  color: var(--amber);
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-decoration: none;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+.button:hover { border-color: var(--amber); color: var(--amber-hot); background: rgba(255,176,0,.12); }
+.button.primary { border-color: var(--amber); background: rgba(255,176,0,.16); color: var(--amber-hot); }
+.button small { color: var(--amber-dim); letter-spacing: 1px; }
+
+footer {
+  margin-top: 34px;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--amber-muted);
+}
+footer a { color: var(--amber-dim); text-decoration: none; }
+.publisher { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 14px; text-align: left; }
+.publisher img { width: 52px; height: auto; filter: drop-shadow(0 0 6px rgba(255,176,0,.3)); }
+.publisher span { display: block; }
+.publisher .pl { font-size: 10px; letter-spacing: 4px; color: var(--amber-dim); }
+.publisher .pn { color: var(--amber); letter-spacing: 3px; }
+
+@media (max-width: 760px) {
+  .hero { grid-template-columns: 1fr; padding: 26px 18px; }
+  .phone { max-width: 240px; }
+  .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .cards.small { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  body { font-size: 14px; }
+  .panel { padding: 20px 16px; }
+  .topbar .bars { display: none; }
+  .shots { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .shots figcaption { font-size: 9px; letter-spacing: 1px; }
+  .features { grid-template-columns: 1fr; }
+  .kv { grid-template-columns: 1fr; gap: 0; }
+  .kv dd { margin-bottom: 8px; }
+  .play { padding: 12px 18px 12px 14px; gap: 12px; }
+  .play .pl-top { font-size: 26px; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+
+  <div class="topbar">
+    <a class="home-link" href="https://mpcreativeforge-arch.github.io/" data-cs="◂ MP Creative Forge">◂ MP Creative Forge</a>
+    <span class="bars">▮▮▮▯▮▮▯▯▮▮▮▮▯▮</span>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-set-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-set-lang="cs" aria-pressed="false">CZ</button>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="panel ice hero">
+    <div>
+      <div class="brand">MP CREATIVE FORGE</div>
+      <div class="logo-row">
+        <img src="../assets/cryocore/icon.webp" alt="CRYOCORE icon" width="84" height="84">
+        <div>
+          <h1 class="logo">CRYOCORE</h1>
+          <div class="subtitle" data-cs="Kyber-kryo logická hra">Cyber-cryo puzzle game</div>
+        </div>
+      </div>
+
+      <p class="pitch" data-cs="Poškozená AI zaplavuje kryo jádro kódem. Každý tah bez shody jí dá další kámen. Smaž kód, poraz bosse a prolom jádro, než zamrzne.">A damaged AI is flooding the cryo core with code. Every move without a match hands it another stone. Wipe the code, beat the bosses and breach the core before it freezes.</p>
+
+      <!-- When the game is live: change <span class="play"> to <a class="play" href="https://play.google.com/store/apps/details?id=…"> -->
+      <span class="play" role="link" aria-disabled="true">
+        <svg viewBox="0 0 24 26" aria-hidden="true">
+          <path fill="#4285F4" d="M1.1 .9 13.6 13 1.1 25.1c-.4-.3-.6-.8-.6-1.4V2.3c0-.6.2-1.1.6-1.4Z"/>
+          <path fill="#34A853" d="M1.1 .9c.5-.4 1.3-.5 2-.1l14.6 8.4-4.1 3.8Z"/>
+          <path fill="#EA4335" d="M1.1 25.1 13.6 13l4.1 3.8-14.6 8.4c-.7.4-1.5.3-2-.1Z"/>
+          <path fill="#FBBC04" d="m17.7 9.2 4.6 2.6c1 .6 1 1.8 0 2.4l-4.6 2.6-4.1-3.8Z"/>
+        </svg>
+        <span>
+          <span class="pl-top" data-cs="HRÁT HRU">PLAY THE GAME</span>
+          <span class="pl-sub">GOOGLE PLAY · <span class="pl-soon" data-cs="PŘIPRAVUJEME">COMING SOON</span></span>
+        </span>
+      </span>
+
+      <div class="facts-line">
+        <b>ANDROID</b>
+        <b data-cs="OFFLINE">OFFLINE</b>
+        <b data-cs="BEZ REKLAM">NO ADS</b>
+        <b data-cs="JEDNORÁZOVÝ NÁKUP">ONE-TIME PURCHASE</b>
+      </div>
+    </div>
+
+    <div class="phone">
+      <img data-src-en="../assets/cryocore/shot-en-game.webp" data-src-cs="../assets/cryocore/shot-cs-game.webp"
+           src="../assets/cryocore/shot-en-game.webp" alt="CRYOCORE game board with creatures" width="432" height="768">
+    </div>
+  </header>
+
+  <!-- STORY -->
+  <section class="panel story">
+    <h2><span class="num">01</span><span data-cs="Příběh">Story</span></h2>
+    <p data-cs="Hluboko pod ledem běží kryo jádro, které drží celou stanici při životě. Jeho řídicí AI se poškodila a začala ho zaplavovat vlastním kódem. Když se plocha zaplní, jádro zamrzne navždy.">Deep under the ice runs the cryo core that keeps the whole station alive. Its control AI got damaged and started flooding it with its own code. If the board fills up, the core freezes for good.</p>
+    <p data-cs="Jsi operátor u posledního terminálu. Skládáš tři a více stejných symbolů, mažeš kód a ubíráš AI integritu. Ona ti to nebude ulehčovat: posílá bosse, pouští na plochu glitchové bytosti, spouští katastrofy a celou dobu tě komentuje.">You are the operator at the last terminal. Line up three or more matching symbols, wipe the code and drain the AI's integrity. It will not make it easy: it sends bosses, lets glitchy creatures loose on the board, triggers disasters and comments on everything you do.</p>
+    <div class="ai"><span data-cs="AI // POŠKOZENÉ JÁDRO">AI // DAMAGED KERNEL</span><span data-cs="Prorazil jsi jednu zeď. Postavila jsem jich tisíc.">You broke one wall. I built a thousand.</span></div>
+  </section>
+
+  <!-- SCREENSHOTS -->
+  <section class="panel ice">
+    <h2><span class="num">02</span><span data-cs="Ze hry">In the game</span></h2>
+    <div class="shots">
+      <figure>
+        <img data-src-en="../assets/cryocore/shot-en-game.webp" data-src-cs="../assets/cryocore/shot-cs-game.webp"
+             src="../assets/cryocore/shot-en-game.webp" alt="" width="432" height="768" loading="lazy">
+        <figcaption data-cs="Plocha 8×8">8×8 board</figcaption>
+      </figure>
+      <figure>
+        <img data-src-en="../assets/cryocore/shot-en-boss.webp" data-src-cs="../assets/cryocore/shot-cs-boss.webp"
+             src="../assets/cryocore/shot-en-boss.webp" alt="" width="432" height="768" loading="lazy">
+        <figcaption data-cs="Souboj s bossem">Boss fight</figcaption>
+      </figure>
+      <figure>
+        <img data-src-en="../assets/cryocore/shot-en-bestiary.webp" data-src-cs="../assets/cryocore/shot-cs-bestiary.webp"
+             src="../assets/cryocore/shot-en-bestiary.webp" alt="" width="432" height="768" loading="lazy">
+        <figcaption data-cs="Bestiář">Bestiary</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="panel">
+    <h2><span class="num">03</span><span data-cs="Co tě čeká">What awaits you</span></h2>
+    <div class="features">
+      <div class="feature"><b data-cs-html="<em>99</em> LEVELŮ + FINÁLE"><em>99</em> LEVELS + FINALE</b><span data-cs="Deset kapitol od Diagnostiky po Jádro AI. Každý level je o kousek těžší.">Ten chapters from Diagnostics to the AI Core. Every level is a little harder.</span></div>
+      <div class="feature"><b data-cs-html="<em>5</em> BOSSŮ"><em>5</em> BOSSES</b><span data-cs="Nexus Devil, Void Mantis, Cryo Wraith, Core Titan a nakonec mechanické oko AI OMNICORE.">Nexus Devil, Void Mantis, Cryo Wraith, Core Titan and finally the mechanical eye of AI OMNICORE.</span></div>
+      <div class="feature"><b data-cs-html="<em>20+</em> BYTOSTÍ"><em>20+</em> CREATURES</b><span data-cs="Goblin krade symboly, pavouk přede sítě, vlci loví ve smečce a obchodní dron prodává vybavení.">The goblin steals symbols, the spider spins webs, wolves hunt in packs and a trading drone sells gear.</span></div>
+      <div class="feature"><b data-cs-html="<em>7</em> DOVEDNOSTÍ"><em>7</em> SKILLS</b><span data-cs="SCAN, VEKTOR, TELEPORT, NOVA, EMP, SPEKTRUM a pulzní past na entity.">SCAN, VEKTOR, TELEPORT, NOVA, EMP, SPECTRUM and a pulse trap for creatures.</span></div>
+      <div class="feature"><b data-cs="SPECIÁLNÍ KAMENY">SPECIAL STONES</b><span data-cs="Kyselina, izotop, reaktor, skokan, krystal a další. Shoda čtyř nebo pěti je vždy odměna.">Acid, isotope, reactor, jumper, crystal and more. A match of four or five always pays off.</span></div>
+      <div class="feature"><b data-cs="UDÁLOSTI A KATASTROFY">EVENTS AND DISASTERS</b><span data-cs="Orbitální úder pomůže, kódová bomba ne. Výpadek proudu zhasne plochu a kryo lavina ji zasype ledem.">An orbital strike helps, a code bomb does not. A power outage darkens the board and a cryo avalanche buries it in ice.</span></div>
+      <div class="feature"><b data-cs="DENNÍ VÝZVA A NEKONEČNÁ HRA">DAILY CHALLENGE AND ENDLESS</b><span data-cs="Každý den nový level se sérií dnů. Po zničení AI se odemkne nekonečná hra ve vlnách.">A new level every day with a day streak. Beat the AI to unlock endless waves.</span></div>
+      <div class="feature"><b data-cs="SBÍRKA A MOTIVY">COLLECTION AND THEMES</b><span data-cs="44 odznaků, 9 karet úspěchů, bestiář a pět motivů od Arktického po Molten Core.">44 badges, 9 achievement cards, a bestiary and five themes from Arctic to Molten Core.</span></div>
+    </div>
+  </section>
+
+  <!-- BESTIARY -->
+  <section class="panel ice">
+    <h2><span class="num">04</span><span data-cs="Bossové">Bosses</span></h2>
+    <div class="cards">
+      <figure><img src="../assets/cryocore/card-devil.webp" alt="" width="240" height="336" loading="lazy"><figcaption>NEXUS DEVIL<small data-cs="OD L10">FROM L10</small></figcaption></figure>
+      <figure><img src="../assets/cryocore/card-mantis.webp" alt="" width="240" height="336" loading="lazy"><figcaption>VOID MANTIS<small data-cs="OD L25">FROM L25</small></figcaption></figure>
+      <figure><img src="../assets/cryocore/card-wraith.webp" alt="" width="240" height="336" loading="lazy"><figcaption>CRYO WRAITH<small data-cs="OD L40">FROM L40</small></figcaption></figure>
+      <figure><img src="../assets/cryocore/card-titan.webp" alt="" width="240" height="336" loading="lazy"><figcaption>CORE TITAN<small data-cs="OD L60">FROM L60</small></figcaption></figure>
+      <figure><img src="../assets/cryocore/card-omnicore.webp" alt="" width="240" height="336" loading="lazy"><figcaption>AI OMNICORE<small data-cs="LEVEL 99">LEVEL 99</small></figcaption></figure>
+    </div>
+    <div class="cards small">
+      <figure><img src="../assets/cryocore/card-goblin.webp" alt="" width="240" height="336" loading="lazy"><figcaption>AI GOBLIN</figcaption></figure>
+      <figure><img src="../assets/cryocore/card-rooster.webp" alt="" width="240" height="336" loading="lazy"><figcaption>AI ROOSTER</figcaption></figure>
+      <figure><img src="../assets/cryocore/card-fly.webp" alt="" width="240" height="336" loading="lazy"><figcaption>DIGI FLY</figcaption></figure>
+      <figure><img src="../assets/cryocore/card-spider.webp" alt="" width="240" height="336" loading="lazy"><figcaption data-cs="NANO PAVOUK">NANO SPIDER</figcaption></figure>
+      <figure><img src="../assets/cryocore/card-cat.webp" alt="" width="240" height="336" loading="lazy"><figcaption data-cs="KVANTOVÁ KOČKA">QUANTUM CAT</figcaption></figure>
+      <figure><img src="../assets/cryocore/card-jelly.webp" alt="" width="240" height="336" loading="lazy"><figcaption data-cs="PLAZMA MEDÚZA">PLASMA JELLY</figcaption></figure>
+      <figure><img src="../assets/cryocore/card-wolf.webp" alt="" width="240" height="336" loading="lazy"><figcaption data-cs="PIXELOVÍ VLCI">PIXEL WOLVES</figcaption></figure>
+      <figure><img src="../assets/cryocore/card-trader.webp" alt="" width="240" height="336" loading="lazy"><figcaption>BROKER-3</figcaption></figure>
+    </div>
+    <p class="note" style="margin-top:14px" data-cs="Každou bytost zapíšeš do bestiáře při prvním setkání. Zbytek objevíš sám.">Every creature goes into your bestiary the first time you meet it. The rest is yours to discover.</p>
+  </section>
+
+  <!-- SPECS -->
+  <section class="panel">
+    <h2><span class="num">05</span><span data-cs="O hře">About the game</span></h2>
+    <dl class="kv">
+      <dt data-cs="Platforma">Platform</dt><dd>ANDROID</dd>
+      <dt data-cs="Žánr">Genre</dt><dd data-cs="Logická hra match-3 s bossy, bytostmi a dovednostmi">Match-3 puzzle game with bosses, creatures and skills</dd>
+      <dt data-cs="Cena">Price</dt><dd data-cs="Jednorázový nákup. Žádné reklamy, žádné předplatné, žádné mikrotransakce.">One-time purchase. No ads, no subscription, no microtransactions.</dd>
+      <dt data-cs="Připojení">Connection</dt><dd data-cs="Hraje se úplně offline. Žádný účet, žádný sběr dat.">Plays fully offline. No account, no data collection.</dd>
+      <dt data-cs="Jazyky">Languages</dt><dd data-cs="čeština, angličtina, němčina, španělština, francouzština, italština, polština, portugalština, slovenština, turečtina">English, Czech, German, Spanish, French, Italian, Polish, Portuguese, Slovak, Turkish</dd>
+      <dt data-cs="Vývojář">Developer</dt><dd>MP CREATIVE FORGE</dd>
+      <dt data-cs="Vydavatel">Publisher</dt><dd>MICROVISION S.R.O.</dd>
+      <dt data-cs="Kontakt">Contact</dt><dd>mpcreativeforge@gmail.com</dd>
+    </dl>
+  </section>
+
+  <!-- MANUAL + PRIVACY -->
+  <section class="panel ice" id="manual">
+    <h2><span class="num">06</span><span data-cs="Příručka a dokumenty">Guide and documents</span></h2>
+    <p data-cs="Příručka pro hráče vysvětluje pravidla, skóre, dovednosti, bytosti i bosse. Je ve formátu PDF a stáhne se až po klepnutí.">The player guide explains the rules, scoring, skills, creatures and bosses. It is a PDF and downloads only when you tap it.</p>
+    <div class="buttons">
+      <a class="button primary" href="../assets/cryocore/CRYOCORE_Player_Guide_EN.pdf" data-cs="PŘÍRUČKA · ANGLICKY (PDF)">PLAYER GUIDE · ENGLISH (PDF)</a>
+      <a class="button primary" href="../assets/cryocore/CRYOCORE_Prirucka_CZ.pdf" data-cs="PŘÍRUČKA · ČESKY (PDF)">PLAYER GUIDE · CZECH (PDF)</a>
+      <a class="button" href="../privacy/cryocore/" data-privacy data-cs="ZÁSADY SOUKROMÍ">PRIVACY POLICY</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="publisher">
+      <img src="../assets/microvision-logo.png" alt="MICROVISION s.r.o. logo" width="260" height="263">
+      <div>
+        <span class="pl" data-cs="VYDAVATEL">PUBLISHER</span>
+        <span class="pn">MICROVISION S.R.O. COMPANY</span>
+      </div>
+    </div>
+    © 2026 MP CREATIVE FORGE ·
+    <a href="https://mpcreativeforge-arch.github.io/">MPCREATIVEFORGE-ARCH.GITHUB.IO</a>
+  </footer>
+</main>
+
+<script>
+(function () {
+  var TITLE = {
+    en: "CRYOCORE — Cyber-Cryo Puzzle Game | MP Creative Forge",
+    cs: "CRYOCORE — Kyber-kryo logická hra | MP Creative Forge"
+  };
+  var text = document.querySelectorAll("[data-cs]");
+  var html = document.querySelectorAll("[data-cs-html]");
+  var imgs = document.querySelectorAll("img[data-src-cs]");
+  var privacy = document.querySelectorAll("[data-privacy]");
+  var buttons = document.querySelectorAll("[data-set-lang]");
+  text.forEach(function (el) { el.setAttribute("data-en", el.textContent); });
+  html.forEach(function (el) { el.setAttribute("data-en-html", el.innerHTML); });
+
+  function show(lang) {
+    if (lang !== "cs") lang = "en";
+    var cs = lang === "cs";
+    text.forEach(function (el) { el.textContent = el.getAttribute(cs ? "data-cs" : "data-en"); });
+    html.forEach(function (el) { el.innerHTML = el.getAttribute(cs ? "data-cs-html" : "data-en-html"); });
+    imgs.forEach(function (el) { el.src = el.getAttribute(cs ? "data-src-cs" : "data-src-en"); });
+    privacy.forEach(function (a) { a.href = "../privacy/cryocore/" + (cs ? "?lang=cs" : ""); });
+    buttons.forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-set-lang") === lang)); });
+    document.documentElement.lang = lang;
+    document.title = TITLE[lang];
+  }
+
+  function initial() {
+    var param = new URLSearchParams(location.search).get("lang");
+    if (param) return param.toLowerCase();
+    if (location.hash === "#cs" || location.hash === "#en") return location.hash.slice(1);
+    try {
+      var saved = localStorage.getItem("mpcf-lang");
+      if (saved) return saved;
+    } catch (e) {}
+    return (navigator.language || "en").toLowerCase().indexOf("cs") === 0 ? "cs" : "en";
+  }
+
+  buttons.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var lang = b.getAttribute("data-set-lang");
+      show(lang);
+      try { localStorage.setItem("mpcf-lang", lang); } catch (e) {}
+    });
+  });
+
+  show(initial());
+})();
+</script>
+</body>
+</html>
