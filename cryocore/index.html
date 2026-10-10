@@ -77,7 +77,7 @@ body::after {
 
 a { color: var(--amber-bright); }
 a:hover { color: var(--amber-hot); }
-img { max-width: 100%; }
+img { max-width: 100%; height: auto; }
 [hidden] { display: none !important; }
 
 .page {
@@ -132,7 +132,7 @@ img { max-width: 100%; }
 .hero > * { min-width: 0; }
 .brand { font-size: 12px; letter-spacing: 6px; color: var(--amber-dim); }
 .logo-row { display: flex; align-items: center; gap: 18px; margin-top: 14px; }
-.logo-row img { width: 84px; height: 84px; border: 1px solid var(--ice-dim); filter: drop-shadow(0 0 10px rgba(127,227,255,.35)); }
+.logo-row img { width: 84px; height: 84px; flex: none; border: 1px solid var(--ice-dim); filter: drop-shadow(0 0 10px rgba(127,227,255,.35)); }
 .logo {
   margin: 0;
   font-family: var(--vt);
@@ -191,7 +191,7 @@ a.play:hover { background: rgba(127,227,255,.2); color: #fff; }
   border-radius: 22px;
   box-shadow: 0 0 40px rgba(127,227,255,.15);
 }
-.phone img { display: block; width: 100%; aspect-ratio: 9 / 16; border-radius: 14px; }
+.phone img { display: block; width: 100%; height: auto; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 14px; }
 
 /* section headings */
 h2 {
@@ -232,7 +232,7 @@ p { margin: 0 0 10px; }
 /* screenshots */
 .shots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .shots figure { margin: 0; }
-.shots img { display: block; width: 100%; aspect-ratio: 9 / 16; border: 1px solid var(--ice-dim); border-radius: 12px; }
+.shots img { display: block; width: 100%; height: auto; aspect-ratio: 9 / 16; object-fit: cover; border: 1px solid var(--ice-dim); border-radius: 12px; }
 .shots figcaption { margin-top: 8px; font-size: 11px; letter-spacing: 2px; color: var(--ice); text-align: center; text-transform: uppercase; }
 
 /* features */
@@ -245,7 +245,7 @@ p { margin: 0 0 10px; }
 /* bestiary */
 .cards { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
 .cards figure { margin: 0; text-align: center; }
-.cards img { display: block; width: 100%; aspect-ratio: 5 / 7; }
+.cards img { display: block; width: 100%; height: auto; aspect-ratio: 5 / 7; object-fit: contain; }
 .cards figcaption { margin-top: 6px; font-size: 11px; letter-spacing: 1px; color: var(--amber-bright); line-height: 1.35; }
 .cards figcaption small { display: block; color: var(--amber-dim); font-size: 10px; letter-spacing: 2px; }
 .cards.small { grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 8px; margin-top: 18px; }
