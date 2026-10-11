@@ -19,21 +19,19 @@
 
   const OTHER = 'OTHER';
   const CATEGORIES = ['IMAGE', 'VIDEO', 'AUDIO', 'CHARACTER', 'VFX', 'ADVERTISING', 'STORY', OTHER];
-  const CATEGORY_COLORS = {
-    IMAGE: '#FFE27A', VIDEO: '#F2B640', AUDIO: '#E6C56E', CHARACTER: '#D9A24A',
-    VFX: '#C8862E', ADVERTISING: '#B98E45', STORY: '#F5E3B5', OTHER: '#A87E3A'
-  };
-  const WARM = CATEGORIES.map(c => CATEGORY_COLORS[c]);
+  // Category accents are CSS variables (--cat-IMAGE …) so each mode has its own readable shades.
+  const WARM = CATEGORIES.map(c => 'var(--cat-' + c + ')');
   const MODELS = ['Veo', 'Runway', 'Kling', 'Seedance', 'Luma', 'Midjourney', 'Flux', 'Sora', 'Gemini', 'Other'];
 
   const MAX_PROMPT = 100000, MAX_TITLE = 120, MAX_NOTE = 5000, MAX_MODEL = 40, MAX_CATEGORY = 24;
   const MAX_TAG = 32, MAX_TAGS = 20, MAX_TERMS = 6, RECENT = 5;
   const APP_ID = 'PROMPT FORGE', BRAND = 'MP CREATIVE FORGE', SCHEMA = 1, MAX_IMPORT = 64 * 1024 * 1024;
-  const WEB_VERSION = 'WEB 1.0';
+  const WEB_VERSION = 'WEB 1.1';
 
   const KEY = {
     session: 'promptforge.session',
     lang: 'promptforge.lang',
+    theme: 'promptforge.theme',
     intro: 'promptforge.intro',
     vault: u => 'promptforge.vault.' + u,
     settings: u => 'promptforge.settings.' + u
@@ -87,7 +85,7 @@
     const key = 'cat_' + String(name).toLowerCase();
     return CATEGORIES.includes(name) ? t(key) : name;
   }
-  function catColor(name) { return CATEGORY_COLORS[name] || '#FFC21A'; }
+  function catColor(name) { return CATEGORIES.includes(name) ? 'var(--cat-' + name + ')' : 'var(--gold)'; }
   function metaLine(category, model) {
     const label = catLabel(category).toUpperCase();
     return model && model.trim() ? label + ' • ' + model.toUpperCase() : label;
@@ -157,7 +155,7 @@
   let editor = null;    // editor screen state
   let leaveGuard = false;
 
-  const DEFAULT_SETTINGS = { crt: true, sounds: true, lang: '', defaultCategory: OTHER, defaultModel: '' };
+  const DEFAULT_SETTINGS = { crt: true, sounds: true, lang: '', defaultCategory: OTHER, defaultModel: '', theme: '' };
 
   function loadUser(u) {
     user = u;
@@ -168,7 +166,7 @@
     if (!vault.nextId) vault.nextId = vault.prompts.reduce((mx, p) => Math.max(mx, p.id), 0) + 1;
     filter.query = ''; filter.fav = false; filter.category = null; filter.showAll = false;
     setLang(settings.lang);
-    applyCrt();
+    applyTheme(settings.theme || store.get(KEY.theme) || 'dark');
   }
   function saveSettings() { store.set(KEY.settings(user.id), JSON.stringify(settings)); }
 
@@ -421,6 +419,8 @@
 
   const ICONS = {
     settings: 'M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z',
+    sun: 'M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58a.996.996 0 0 0-1.41 0 .996.996 0 0 0 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37a.996.996 0 0 0-1.41 0 .996.996 0 0 0 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0a.996.996 0 0 0 0-1.41l-1.06-1.06zm1.06-10.96a.996.996 0 0 0 0-1.41.996.996 0 0 0-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36a.996.996 0 0 0 0-1.41.996.996 0 0 0-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z',
+    moon: 'M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z',
     back: 'M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z',
     close: 'M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z',
     star: 'M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z',
@@ -502,6 +502,32 @@
   }
   function applyCrt() { document.getElementById('crt').hidden = !!settings && !settings.crt; }
 
+  // Dark: the HUD with the CRT effect. Light: clean ochre paper, no CRT (switched off in CSS).
+  const isLight = () => document.documentElement.dataset.theme === 'light';
+  function applyTheme(theme) {
+    if (theme === 'light') document.documentElement.dataset.theme = 'light';
+    else delete document.documentElement.dataset.theme;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.content = theme === 'light' ? '#e8d9b5' : '#050403';
+    applyCrt();
+  }
+  function setTheme(theme) {
+    store.set(KEY.theme, theme);
+    if (settings) { settings.theme = theme; saveSettings(); }
+    applyTheme(theme);
+    document.querySelectorAll('.theme-btn').forEach(updateThemeBtn);
+  }
+  function updateThemeBtn(b) {
+    const label = t(isLight() ? 'theme_to_dark' : 'theme_to_light');
+    b.setAttribute('aria-label', label); b.title = label;
+    b.replaceChildren(icon(isLight() ? 'moon' : 'sun'));
+  }
+  function themeBtn() {
+    const b = h('button', { type: 'button', class: 'icon-btn theme-btn', onClick: () => setTheme(isLight() ? 'dark' : 'light') });
+    updateThemeBtn(b);
+    return b;
+  }
+
   // ---- Clipboard & share ---------------------------------------------------------------------
 
   async function copyText(text) {
@@ -550,7 +576,7 @@
 
   function renderLogin() {
     setLang(store.get(KEY.lang) || '');
-    document.getElementById('crt').hidden = false;
+    applyTheme(store.get(KEY.theme) || 'dark');
     const name = h('input', { type: 'text', autocomplete: 'username', autocapitalize: 'off', spellcheck: 'false', required: true });
     const pass = h('input', { type: 'password', autocomplete: 'current-password', required: true });
     const err = h('p', { class: 'err', role: 'alert' });
@@ -584,7 +610,7 @@
       h('img', { class: 'logo', src: 'assets/mp_creative_forge_logo.png', alt: 'MP CREATIVE FORGE' }),
       h('div', { class: 'brandline' }, h('h1', { class: 'brand', dir: 'ltr' }, 'PROMPTFORGE'), brandLine()),
       card,
-      h('div', { class: 'input lang-pick' }, h('div', { class: 'in' }, langSel))
+      h('div', { class: 'tools' }, h('div', { class: 'input lang-pick' }, h('div', { class: 'in' }, langSel)), themeBtn())
     );
     app.replaceChildren(form);
     name.focus();
@@ -595,6 +621,7 @@
   function userBar() {
     return h('div', { class: 'userbar' }, h('div', { class: 'inner' },
       h('div', { class: 'who' }, h('span', { class: 'dot', 'aria-hidden': 'true' }), t('user_label').toUpperCase() + ': ', h('b', null, user.name.toUpperCase())),
+      themeBtn(),
       btn(t('logout'), logout, 'text')));
   }
   function logout() {
@@ -618,15 +645,15 @@
     for (let i = 0; i < 60; i++) {
       const major = i % 5 === 0, a = i * 6 * Math.PI / 180, outer = 0.29 * w, inner = outer - (major ? 0.04 : 0.022) * w;
       const col = WARM[Math.floor(i * WARM.length / 60)];
-      ticks += `<line x1="${(c + outer * Math.sin(a)).toFixed(2)}" y1="${(c - outer * Math.cos(a)).toFixed(2)}" x2="${(c + inner * Math.sin(a)).toFixed(2)}" y2="${(c - inner * Math.cos(a)).toFixed(2)}" stroke="${col}" stroke-opacity="${major ? 1 : 0.7}" stroke-width="${major ? 1.5 : 1}" stroke-linecap="round"/>`;
+      ticks += `<line x1="${(c + outer * Math.sin(a)).toFixed(2)}" y1="${(c - outer * Math.cos(a)).toFixed(2)}" x2="${(c + inner * Math.sin(a)).toFixed(2)}" y2="${(c - inner * Math.cos(a)).toFixed(2)}" style="stroke:${col}" stroke-opacity="${major ? 1 : 0.7}" stroke-width="${major ? 1.5 : 1}" stroke-linecap="round"/>`;
     }
     svg.innerHTML =
-      '<defs><linearGradient id="metal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD453"/><stop offset=".5" stop-color="#FFC21A"/><stop offset="1" stop-color="#8C6B0E"/></linearGradient></defs>' +
+      '<defs><linearGradient id="metal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--metal-1)"/><stop offset=".5" style="stop-color:var(--metal-2)"/><stop offset="1" style="stop-color:var(--metal-3)"/></linearGradient></defs>' +
       `<path d="${bracket(false)}" fill="url(#metal)"/><path d="${bracket(true)}" fill="url(#metal)"/>` +
-      `<circle cx="${c}" cy="${c}" r="${0.315 * w}" fill="#050403"/>` +
-      `<circle cx="${c}" cy="${c}" r="${0.305 * w}" fill="none" stroke="#FFC21A" stroke-width="1.5"/>` +
+      `<circle cx="${c}" cy="${c}" r="${0.315 * w}" style="fill:var(--gauge-disc)"/>` +
+      `<circle cx="${c}" cy="${c}" r="${0.305 * w}" fill="none" style="stroke:var(--gold)" stroke-width="1.5"/>` +
       `<g class="ring">${ticks}</g>` +
-      `<circle cx="${c}" cy="${c}" r="${0.225 * w}" fill="none" stroke="#FFC21A" stroke-opacity=".8" stroke-width="1"/>`;
+      `<circle cx="${c}" cy="${c}" r="${0.225 * w}" fill="none" style="stroke:var(--gold)" stroke-opacity=".8" stroke-width="1"/>`;
     const el = h('div', { class: 'gauge', role: 'img', 'aria-label': count + ' ' + t('home_prompts_label') }, svg,
       h('div', { class: 'count' }, h('b', null, String(count)), micro(t('home_prompts_label'))));
     // The dial turns once and settles each time the home screen appears, with the ratchet sound.
@@ -971,7 +998,7 @@
       const lines = lineDiff(v.text, p.text);
       const same = lines.every(l => l[0] === ' ');
       const body = h('div', { class: 'stack', style: { gap: '8px' } },
-        h('div', { class: 'row', style: { gap: '16px' } }, micro(t('diff_removed_legend'), '#ff7b52'), micro(t('diff_added_legend'), 'var(--amber-hot)')),
+        h('div', { class: 'row', style: { gap: '16px' } }, micro(t('diff_removed_legend'), 'var(--err)'), micro(t('diff_added_legend'), 'var(--amber-hot)')),
         same ? h('p', null, t('diff_identical'))
           : h('div', { class: 'diff' }, lines.map(([k, s]) => h('div', { class: k === '+' ? 'add' : k === '-' ? 'del' : '' }, (k === ' ' ? '  ' : (k === '+' ? '+ ' : '− ')) + s))));
       dialog({ title: t('versions_compare_title', v.n, p.currentVersion), body, buttons: [{ text: t('action_close') }] });
@@ -1015,7 +1042,10 @@
 
       section(t('settings_appearance')),
       panel(h('div', { class: 'stack' },
-        settingRow(t('settings_crt'), onOff(settings.crt, v => { settings.crt = v; saveSettings(); applyCrt(); rerender(); })),
+        settingRow(t('theme_label'), h('div', { class: 'row' },
+          chip(t('theme_dark'), !isLight(), () => { setTheme('dark'); rerender(); }),
+          chip(t('theme_light'), isLight(), () => { setTheme('light'); rerender(); }))),
+        isLight() ? null : settingRow(t('settings_crt'), onOff(settings.crt, v => { settings.crt = v; saveSettings(); applyCrt(); rerender(); })),
         settingRow(t('settings_vault_sounds'), onOff(settings.sounds, v => { settings.sounds = v; saveSettings(); if (v) play('save'); rerender(); })))),
 
       section(t('settings_language')),
@@ -1154,6 +1184,6 @@
 
   const saved = store.get(KEY.session);
   const known = USERS.find(u => u.id === saved);
-  if (known) loadUser(known); else setLang(store.get(KEY.lang) || '');
+  if (known) loadUser(known); else { setLang(store.get(KEY.lang) || ''); applyTheme(store.get(KEY.theme) || 'dark'); }
   intro(render);
 })();
