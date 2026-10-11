@@ -567,6 +567,7 @@
     else if (r.name === 'p') renderDetail(r.id);
     else if (r.name === 'settings') renderSettings();
     else renderHome();
+    app.appendChild(footer());
     document.title = 'PromptForge';
   }
   window.addEventListener('hashchange', render);
@@ -612,8 +613,11 @@
       card,
       h('div', { class: 'tools' }, h('div', { class: 'input lang-pick' }, h('div', { class: 'in' }, langSel)), themeBtn())
     );
-    app.replaceChildren(form);
+    app.replaceChildren(form, footer());
     name.focus();
+  }
+  function footer() {
+    return h('footer', { class: 'site-foot', dir: 'ltr' }, '© ' + new Date().getFullYear() + ' MICROVISION s.r.o.');
   }
   // Names compare without case or accents, so "natasa", "Nataša" and "NATASA" all work.
   const fold = s => s.trim().normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();

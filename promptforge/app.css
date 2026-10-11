@@ -61,7 +61,7 @@ a{color:var(--text)}
 @media (prefers-reduced-motion:reduce){#crt::after,#crt .flicker{display:none}}
 
 /* ---------- layout ---------- */
-.screen{width:min(100% - 32px,720px);margin:0 auto;padding:8px 0 120px}
+.screen{width:min(100% - 32px,720px);margin:0 auto;padding:8px 0 24px}
 .stack{display:flex;flex-direction:column;gap:12px}
 .row{display:flex;gap:8px;align-items:center}
 .row > .grow{flex:1;min-width:0}
@@ -225,7 +225,7 @@ button.tag:hover{color:var(--heading)}
 #toast.hide{opacity:0;pointer-events:none}
 
 /* ---------- login ---------- */
-.login{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 16px;gap:22px}
+.login{min-height:calc(100vh - 56px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 16px;gap:22px}
 .login .logo{width:min(240px,70vw);height:auto;filter:var(--logo-glow)}
 .login .panel{width:min(100%,400px)}
 .login .panel > .in{padding:22px;display:flex;flex-direction:column;gap:14px}
@@ -275,3 +275,6 @@ button.tag:hover{color:var(--heading)}
 .login .tools{display:flex;gap:8px;align-items:center}
 /* The intro is always the dark boot screen, whatever the mode. */
 #intro{--amber:#ffb000;--amber-bright:#ffd37a;--amber-dim:#b07a12;--amber-muted:#6e4c0e;--panel:#0b0805}
+/* Copyright line at the bottom centre of every screen. */
+.site-foot{text-align:center;padding:16px 16px 24px;font-size:11px;letter-spacing:.2em;color:var(--text-faint)}
+.actionbar ~ .site-foot{padding-bottom:110px}
