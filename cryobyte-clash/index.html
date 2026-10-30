@@ -149,7 +149,7 @@ img { max-width: 100%; height: auto; }
 .pitch { margin: 20px 0 0; font-size: 16px; color: var(--amber-hot); max-width: 52ch; text-wrap: pretty; }
 .pitch .cursor { color: var(--ice); animation: blink 1s steps(1) infinite; }
 
-/* play button: becomes a real link when the Google Play listing is live */
+/* play button: links to the Google Play listing */
 .play {
   display: inline-flex;
   align-items: center;
@@ -163,14 +163,13 @@ img { max-width: 100%; height: auto; }
   clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
   animation: pulse 2.6s ease-in-out infinite;
   text-shadow: 0 0 8px rgba(127,227,255,.5);
-  cursor: default;
 }
-a.play { cursor: pointer; }
 a.play:hover { background: rgba(127,227,255,.2); color: #fff; }
 .play svg { width: 34px; height: 37px; flex: none; filter: drop-shadow(0 0 6px rgba(127,227,255,.35)); }
 .play .pl-top { display: block; font-family: var(--vt); font-size: 30px; letter-spacing: 4px; line-height: 1; }
 .play .pl-sub { display: block; margin-top: 4px; font-size: 11px; letter-spacing: 3px; color: var(--ice); }
-.play .pl-soon { color: var(--amber); }
+.play .pl-live { color: var(--amber); }
+.released { display: inline-block; margin-top: 18px; padding: 4px 10px; font-size: 11px; letter-spacing: 3px; color: var(--amber-hot); border: 1px solid var(--amber); background: rgba(255,176,0,.12); }
 .facts-line { margin-top: 16px; font-size: 11px; letter-spacing: 2px; color: var(--amber-dim); display: flex; flex-wrap: wrap; gap: 4px 18px; }
 .facts-line b { color: var(--amber); font-weight: normal; }
 .facts-line b::before {
@@ -334,8 +333,8 @@ footer a { color: var(--amber-dim); text-decoration: none; }
 
       <p class="pitch" data-cs="Poškozená AI zaplavuje kryo jádro kódem a za ní čeká QUANTUMCORE. Vyber si operátora, skládej shody, poraz bosse a prolom jádro ve dvou aktech, než zamrzne.">A damaged AI is flooding the cryo core with code, and QUANTUMCORE waits behind it. Pick an operator, make matches, beat the bosses and breach the core across two acts before it freezes.</p>
 
-      <!-- When the game is live: change <span class="play"> to <a class="play" href="https://play.google.com/store/apps/details?id=…"> -->
-      <span class="play" role="link" aria-disabled="true">
+      <div><span class="released" data-cs="▶ HRA VYŠLA · 30. 10. 2026">▶ OUT NOW · 30 OCT 2026</span></div>
+      <a class="play" href="https://play.google.com/store/apps/details?id=cz.microvision.cryocore" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 26" aria-hidden="true">
           <path fill="#4285F4" d="M1.1 .9 13.6 13 1.1 25.1c-.4-.3-.6-.8-.6-1.4V2.3c0-.6.2-1.1.6-1.4Z"/>
           <path fill="#34A853" d="M1.1 .9c.5-.4 1.3-.5 2-.1l14.6 8.4-4.1 3.8Z"/>
@@ -344,9 +343,9 @@ footer a { color: var(--amber-dim); text-decoration: none; }
         </svg>
         <span>
           <span class="pl-top" data-cs="HRÁT HRU">PLAY THE GAME</span>
-          <span class="pl-sub">GOOGLE PLAY · <span class="pl-soon" data-cs="PŘIPRAVUJEME">COMING SOON</span></span>
+          <span class="pl-sub">GOOGLE PLAY · <span class="pl-live" data-cs="KE STAŽENÍ ZDARMA">FREE DOWNLOAD</span></span>
         </span>
-      </span>
+      </a>
 
       <div class="facts-line">
         <b>ANDROID</b>
